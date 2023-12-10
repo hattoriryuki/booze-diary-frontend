@@ -6,6 +6,7 @@ export const Footer: FC = memo(() => {
     <Flex
       as={"footer"}
       h="56px"
+      w="100%"
       position="fixed"
       bottom={0}
       left="50%"
@@ -14,7 +15,7 @@ export const Footer: FC = memo(() => {
       alignItems="center"
       justify="center"
     >
-      <Stack direction="row" gap={12}>
+      <Stack direction="row" gap={{ base: 4, md: 12 }}>
         <Link>利用規約</Link>
         <Link>プライバシーポリシー</Link>
         <Link>お問い合せ</Link>
