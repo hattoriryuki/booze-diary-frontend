@@ -1,9 +1,14 @@
-import { Button, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+
+import { theme } from "./theme/theme";
+import { Header } from "./components/organisms/layout/Header";
+import { Footer } from "./components/organisms/layout/Footer";
 
 function App() {
   return (
-    <ChakraProvider>
-      <Button>ボタン</Button>
+    <ChakraProvider theme={theme}>
+      <Header />
+      <Footer />
     </ChakraProvider>
   );
 }
