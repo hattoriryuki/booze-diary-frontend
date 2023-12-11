@@ -1,15 +1,8 @@
 import { FC, memo } from "react";
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 import topImage from "../../assets/images/top.jpg";
+import { DrinkCard } from "../organisms/DrinkCard";
 
 export const Top: FC = memo(() => {
   return (
@@ -35,37 +28,11 @@ export const Top: FC = memo(() => {
           w={{ base: "90%", md: "60%" }}
           position="relative"
         >
-          <Box>
-            <Image src={topImage} alt="Swiper image" w="600px" />
-            <Flex
-              position="absolute"
-              bottom={4}
-              alignItems="center"
-              justify="center"
-              bgColor="rgb(74 77 81 / 55%)"
-              w={{ base: "calc(100% - 32px)", md: "600px" }}
-              h="50px"
-            >
-              <Flex
-                position="absolute"
-                top="-16px"
-                left={2}
-                alignItems="center"
-              >
-                <Avatar size="sm" />
-                <Text
-                  ml={2}
-                  color="white"
-                  fontSize={{ base: "medium", md: "large" }}
-                >
-                  お酒太郎
-                </Text>
-              </Flex>
-              <Heading fontSize="large" color="white">
-                ワイルドターキー
-              </Heading>
-            </Flex>
-          </Box>
+          <DrinkCard
+            image={topImage}
+            username="お酒太郎"
+            name="ワイルドターキー"
+          />
         </Flex>
         <Button bgColor="#4D4B4B" color="white" mt={10}>
           はじめる
