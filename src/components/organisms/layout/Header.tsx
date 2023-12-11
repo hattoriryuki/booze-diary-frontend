@@ -5,7 +5,7 @@ import logoImage from "../../../assets/images/logo.png";
 
 export const Header: FC = memo(() => {
   return (
-    <Flex as={"header"} h="64px" justify="space-between" alignItems="center">
+    <Flex as={"header"} h="64px" w="100%" position="fixed" top={0} bgColor="white" justify="space-between" alignItems="center">
       <Image
         src={logoImage}
         alt="Logo image"
