@@ -12,6 +12,7 @@ import {
 
 import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
+import { PrimaryButton } from "../atoms/PrimaryButton";
 
 const drinkData = [
   {
@@ -69,14 +70,7 @@ export const Top: FC = memo(() => {
         >
           全ての投稿
         </Button>
-        <Button
-          bgColor="#4D4B4B"
-          color="white"
-          mt={{ base: "10", md: "20" }}
-          _hover={{ opacity: 0.8 }}
-        >
-          はじめる
-        </Button>
+        <PrimaryButton>はじめる</PrimaryButton>
       </Box>
     </Box>
   );
