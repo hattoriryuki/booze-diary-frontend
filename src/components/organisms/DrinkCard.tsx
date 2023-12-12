@@ -12,16 +12,22 @@ export const DrinkCard: FC<Props> = memo((props) => {
   const { image, username, name, avatar } = props;
 
   return (
-    <Box>
-      <Image src={image} alt="Swiper image" w="600px" />
+    <Box position="relative">
+      <Image
+        src={image}
+        alt="Drink image"
+        w={{ base: "300px", md: "500px" }}
+        borderRadius="10px"
+      />
       <Flex
         position="absolute"
-        bottom={4}
+        bottom={0}
         alignItems="center"
         justify="center"
         bgColor="rgb(74 77 81 / 55%)"
-        w={{ base: "calc(100% - 32px)", md: "600px" }}
+        w={{ base: "calc(100% - 32px)", md: "500px" }}
         h="50px"
+        borderBottomRadius="10px"
       >
         <Flex position="absolute" top="-16px" left={2} alignItems="center">
           <Avatar size="sm" name={avatar} />
