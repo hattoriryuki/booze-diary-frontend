@@ -16,15 +16,15 @@ export const Header: FC = memo(() => {
       w="100%"
       position="fixed"
       top={0}
-      bgColor="white"
+      bg="white"
       justify="space-between"
-      alignItems="center"
+      align="center"
       zIndex="10"
     >
       <Image
         src={logoImage}
         alt="Logo image"
-        boxShadow="none"
+        shadow="none"
         cursor="pointer"
       />
       <Box>

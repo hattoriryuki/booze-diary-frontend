@@ -22,9 +22,9 @@ export const DrinkCard: FC<Props> = memo((props) => {
       <Flex
         position="absolute"
         bottom={0}
-        alignItems="center"
+        align="center"
         justify="center"
-        bgColor="rgb(74 77 81 / 55%)"
+        bg="rgb(74 77 81 / 55%)"
         w={{ base: "300px", md: "500px" }}
         h="50px"
         borderBottomRadius="10px"
