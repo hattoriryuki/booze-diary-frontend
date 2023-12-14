@@ -1,9 +1,14 @@
-import { FC, memo } from "react";
+import { FC, memo, useCallback } from "react";
 import { Box, Flex, Image, Link } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import logoImage from "../../../assets/images/logo.png";
 
 export const Header: FC = memo(() => {
+  const navigate = useNavigate();
+
+  const onClickLogin = useCallback(() => navigate("/login"), []);
+
   return (
     <Flex
       as={"header"}
@@ -23,7 +28,9 @@ export const Header: FC = memo(() => {
         cursor="pointer"
       />
       <Box>
-        <Link mr={4}>ログイン</Link>
+        <Link mr={4} onClick={onClickLogin}>
+          ログイン
+        </Link>
         <Link mr={4}>新規登録</Link>
       </Box>
     </Flex>
