@@ -7,10 +7,7 @@ export const Footer: FC = memo(() => {
       as={"footer"}
       h="56px"
       w="100%"
-      position="fixed"
-      bottom={0}
-      left="50%"
-      transform="translate(-50%, 0)"
+      bgColor="white"
       direction="column"
       alignItems="center"
       justify="center"

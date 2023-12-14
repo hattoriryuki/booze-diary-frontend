@@ -1,14 +1,15 @@
 import { ChakraProvider } from "@chakra-ui/react";
 
 import { theme } from "./theme/theme";
-import { Header } from "./components/organisms/layout/Header";
-import { Footer } from "./components/organisms/layout/Footer";
+import { DefaultLayout } from "./components/templates/DefaultLayout";
+import { Top } from "./components/pages/Top";
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <Header />
-      <Footer />
+      <DefaultLayout>
+        <Top />
+      </DefaultLayout>
     </ChakraProvider>
   );
 }
