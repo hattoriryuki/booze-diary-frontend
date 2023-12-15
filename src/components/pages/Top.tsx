@@ -70,7 +70,7 @@ export const Top: FC = memo(() => {
         >
           全ての投稿
         </Button>
-        <PrimaryButton>はじめる</PrimaryButton>
+        <PrimaryButton mt={{ base: "10", md: "20" }}>はじめる</PrimaryButton>
       </Box>
     </Box>
   );
