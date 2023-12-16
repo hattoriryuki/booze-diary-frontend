@@ -7,9 +7,9 @@ export const Footer: FC = memo(() => {
       as={"footer"}
       h="56px"
       w="100%"
-      bgColor="white"
+      bg="white"
       direction="column"
-      alignItems="center"
+      align="center"
       justify="center"
     >
       <Stack direction="row" gap={{ base: 4, md: 12 }}>

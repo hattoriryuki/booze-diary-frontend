@@ -41,7 +41,7 @@ export const Top: FC = memo(() => {
   return (
     <Box w="100vw" overflow="scroll" pb={10}>
       <Image src={topImage} alt="Top image" w="100%" />
-      <Box as={Flex} direction="column" alignItems="center">
+      <Box as={Flex} direction="column" align="center">
         <Heading mt={10} mb={6} fontSize={{ base: "4xl", md: "5xl" }}>
           BoozeDiaryへようこそ
         </Heading>
@@ -70,7 +70,7 @@ export const Top: FC = memo(() => {
         >
           全ての投稿
         </Button>
-        <PrimaryButton>はじめる</PrimaryButton>
+        <PrimaryButton mt={{ base: "10", md: "20" }}>はじめる</PrimaryButton>
       </Box>
     </Box>
   );
