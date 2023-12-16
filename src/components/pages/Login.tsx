@@ -1,10 +1,14 @@
-import { FC, memo, useCallback } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import {
   Box,
+  BoxProps,
+  Button,
   Flex,
   Heading,
   Input,
+  InputGroup,
   InputProps,
+  InputRightElement,
   Link,
   Text,
 } from "@chakra-ui/react";
@@ -12,9 +16,17 @@ import {
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
 export const Login: FC = memo(() => {
+  const [show, setShow] = useState(false);
+
   const StyledInput: FC<InputProps> = useCallback(({ ...props }) => {
     return <Input shadow="md" bg="#F3F3F3" border="none" {...props} />;
   }, []);
+
+  const StyledBox: FC<BoxProps> = useCallback(({ ...props }) => {
+    return <Box w={{ base: "90%", md: "40%" }} {...props} />;
+  }, []);
+
+  const onClickShowPassword = useCallback(() => setShow(!show), [show]);
 
   return (
     <Flex
@@ -29,14 +41,28 @@ export const Login: FC = memo(() => {
         ログイン
       </Heading>
       <Flex direction="column" align="center" w="100%">
-        <Box w={{ base: "90%", md: "40%" }}>
+        <StyledBox>
           <Text>メールアドレス</Text>
           <StyledInput type="email" />
-        </Box>
-        <Box w={{ base: "90%", md: "40%" }} mt={10}>
+        </StyledBox>
+        <StyledBox mt={10}>
           <Text>パスワード</Text>
-          <StyledInput type="password" />
-        </Box>
+          <InputGroup>
+            <StyledInput type={show ? "text" : "password"} />
+            <InputRightElement w="3.5rem">
+              <Button
+                size="sm"
+                h="1.75rem"
+                bg={show ? "#e1e5e8" : "#F3F3F3"}
+                color="gray.600"
+                _hover={{ color: "gray.500" }}
+                onClick={onClickShowPassword}
+              >
+                表示
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+        </StyledBox>
       </Flex>
       <PrimaryButton>ログイン</PrimaryButton>
       <Box>
