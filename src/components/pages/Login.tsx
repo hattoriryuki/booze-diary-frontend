@@ -5,22 +5,17 @@ import {
   Button,
   Flex,
   Heading,
-  Input,
   InputGroup,
-  InputProps,
   InputRightElement,
   Link,
   Text,
 } from "@chakra-ui/react";
 
 import { PrimaryButton } from "../atoms/PrimaryButton";
+import { PrimaryInput } from "../atoms/PrimaryInput";
 
 export const Login: FC = memo(() => {
   const [show, setShow] = useState(false);
-
-  const StyledInput: FC<InputProps> = useCallback(({ ...props }) => {
-    return <Input shadow="md" bg="#F3F3F3" border="none" {...props} />;
-  }, []);
 
   const StyledBox: FC<BoxProps> = useCallback(({ ...props }) => {
     return <Box w={{ base: "90%", md: "40%" }} {...props} />;
@@ -43,12 +38,12 @@ export const Login: FC = memo(() => {
       <Flex direction="column" align="center" w="100%">
         <StyledBox>
           <Text>メールアドレス</Text>
-          <StyledInput type="email" />
+          <PrimaryInput type="email" />
         </StyledBox>
         <StyledBox mt={10}>
           <Text>パスワード</Text>
           <InputGroup>
-            <StyledInput type={show ? "text" : "password"} />
+            <PrimaryInput type={show ? "text" : "password"} />
             <InputRightElement w="3.5rem">
               <Button
                 size="sm"
