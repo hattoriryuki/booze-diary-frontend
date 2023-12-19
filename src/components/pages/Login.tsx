@@ -87,7 +87,12 @@ export const Login: FC = memo(() => {
           mt={10}
         />
       </Flex>
-      <PrimaryButton onClick={onClickSignIn}>ログイン</PrimaryButton>
+      <PrimaryButton
+        onClick={onClickSignIn}
+        isDisabled={!email || !password ? true : false}
+      >
+        ログイン
+      </PrimaryButton>
       <Box>
         <Link mr={8}>新規登録</Link>
         <Link>パスワードをお忘れの方</Link>
