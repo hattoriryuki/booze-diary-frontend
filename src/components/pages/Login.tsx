@@ -1,7 +1,6 @@
 import {
   ChangeEvent,
   FC,
-  MouseEventHandler,
   memo,
   useCallback,
   useContext,
@@ -17,10 +16,12 @@ import { PasswordInput } from "../molecules/PasswordInput";
 import { SignInParams } from "../../theme/api/userAuth";
 import { signIn } from "../../api/auth";
 import { LoginUserContext } from "../../providers/LoginUserProvider";
+import { useToastMsg } from "../../hooks/useToastMsg";
 
 export const Login: FC = memo(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { showToastMsg } = useToastMsg();
 
   const { setIsSignedIn, setCurrentUser } = useContext(LoginUserContext);
   const navigate = useNavigate();
@@ -47,20 +48,17 @@ export const Login: FC = memo(() => {
 
     try {
       const res = await signIn(params);
-      console.log(res);
-
       if (res.status === 200) {
         Cookies.set("_access_token", res.headers["access-token"]);
         Cookies.set("_client", res.headers["client"]);
         Cookies.set("_uid", res.headers["uid"]);
-
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
         navigate("/");
-        console.log("Signed in successfully!!");
+        showToastMsg({ status: "success", title: "ログインしました" });
       }
     } catch (err) {
-      console.log(err);
+      showToastMsg({ status: "error", title: "ログインに失敗しました" });
     }
   };
 
