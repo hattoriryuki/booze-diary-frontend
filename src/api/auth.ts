@@ -4,7 +4,7 @@ import { client } from "./client";
 import { SignInParams } from "../theme/api/userAuth";
 
 export const signIn = (params: SignInParams) => {
-  return client.post("auth", params);
+  return client.post("auth/sign_in", params);
 };
 
 export const getCurrentUser = () => {
