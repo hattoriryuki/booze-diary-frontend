@@ -3,7 +3,7 @@ import { client } from "./client";
 
 import { SignInParams } from "../theme/api/userAuth";
 
-export const signIn = (params: SignInParams) => {
+export const signInReq = (params: SignInParams) => {
   return client.post("auth/sign_in", params);
 };
 
