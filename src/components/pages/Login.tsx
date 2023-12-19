@@ -40,7 +40,7 @@ export const Login: FC = memo(() => {
     [password]
   );
 
-  const onClickSignIn = async () => {
+  const onClickSignIn = useCallback(async () => {
     const params: SignInParams = {
       email,
       password,
@@ -60,7 +60,7 @@ export const Login: FC = memo(() => {
     } catch (err) {
       showToastMsg({ status: "error", title: "ログインに失敗しました" });
     }
-  };
+  }, [email, password]);
 
   return (
     <Flex
