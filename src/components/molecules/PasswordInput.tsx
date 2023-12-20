@@ -13,21 +13,24 @@ import { PrimaryInput } from "../atoms/PrimaryInput";
 type Argument = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   value: string;
+  title: string;
 };
 
 export const PasswordInput: FC<{ argument: Argument } & ButtonProps> = memo(
   ({ argument, ...props }) => {
+    const { onChange, value, title } = argument;
     const [show, setShow] = useState(false);
 
     const onClickShowPassword = useCallback(() => setShow(!show), [show]);
 
     return (
       <Box w={{ base: "90%", md: "50%" }} {...props}>
-        <Text>パスワード</Text>
+        <Text color="#0A2463">{title}</Text>
         <InputGroup>
           <PrimaryInput
             type={show ? "text" : "password"}
-            argument={argument}
+            onChange={onChange}
+            value={value}
           />
           <InputRightElement w="3.5rem">
             <Button

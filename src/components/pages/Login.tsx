@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, memo, useCallback, useState } from "react";
-import { Box, Flex, Heading, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 
 import { PrimaryButton } from "../atoms/PrimaryButton";
-import { PrimaryInput } from "../atoms/PrimaryInput";
 import { PasswordInput } from "../molecules/PasswordInput";
 import { useSignIn } from "../../hooks/useSignIn";
+import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 
 export const Login: FC = memo(() => {
   const [email, setEmail] = useState("");
@@ -42,15 +42,20 @@ export const Login: FC = memo(() => {
         ログイン
       </Heading>
       <Flex direction="column" align="center" w="100%">
-        <Box w={{ base: "90%", md: "50%" }}>
-          <Text>メールアドレス</Text>
-          <PrimaryInput
-            type="email"
-            argument={{ onChange: onChangeEmail, value: email }}
-          />
-        </Box>
+        <PrimaryInputArea
+          params={{
+            title: "メールアドレス",
+            type: "email",
+            onChange: onChangeEmail,
+            value: email,
+          }}
+        />
         <PasswordInput
-          argument={{ onChange: onChangePassword, value: password }}
+          argument={{
+            onChange: onChangePassword,
+            value: password,
+            title: "パスワード",
+          }}
           mt={10}
         />
       </Flex>

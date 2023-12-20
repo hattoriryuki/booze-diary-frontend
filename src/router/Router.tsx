@@ -5,6 +5,7 @@ import { DefaultLayout } from "../components/templates/DefaultLayout";
 import { Login } from "../components/pages/Login";
 import { Top } from "../components/pages/Top";
 import { LoginUserProvider } from "../providers/LoginUserProvider";
+import { SignUp } from "../components/pages/SignUp";
 
 export const Router: FC = memo(() => {
   return (
@@ -23,6 +24,14 @@ export const Router: FC = memo(() => {
           element={
             <DefaultLayout>
               <Login />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <DefaultLayout>
+              <SignUp />
             </DefaultLayout>
           }
         />
