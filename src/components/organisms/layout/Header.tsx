@@ -11,6 +11,7 @@ export const Header: FC = memo(() => {
 
   const onClickLogin = useCallback(() => navigate("/login"), []);
   const onClickSignUp = useCallback(() => navigate("/signup"), []);
+  const onClickTop = useCallback(() => navigate("/"), []);
 
   return (
     <Flex
@@ -24,7 +25,13 @@ export const Header: FC = memo(() => {
       align="center"
       zIndex="10"
     >
-      <Image src={logoImage} alt="Logo image" shadow="none" cursor="pointer" />
+      <Image
+        src={logoImage}
+        alt="Logo image"
+        shadow="none"
+        cursor="pointer"
+        onClick={onClickTop}
+      />
       <Box>
         {isSignedIn ? (
           <Link mr={4}>ログアウト</Link>
