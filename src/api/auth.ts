@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { client } from "./client";
 
-import { SignInParams } from "../theme/api/userAuth";
+import { SignInParams } from "../types/api/userAuth";
 
 export const signInReq = (params: SignInParams) => {
   return client.post("auth/sign_in", params);

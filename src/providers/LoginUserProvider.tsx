@@ -6,7 +6,7 @@ import {
   useState,
 } from "react";
 
-import { User } from "../theme/api/userAuth";
+import { User } from "../types/api/userAuth";
 
 export const LoginUserContext = createContext(
   {} as {

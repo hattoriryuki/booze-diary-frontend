@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 
 import { LoginUserContext } from "../providers/LoginUserProvider";
-import { SignInParams } from "../theme/api/userAuth";
+import { SignInParams } from "../types/api/userAuth";
 import { signInReq } from "../api/auth";
 import { useToastMsg } from "./useToastMsg";
 
