@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 
 import { PasswordInput } from "../molecules/PasswordInput";
@@ -7,10 +7,12 @@ import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 import { Avatar } from "@chakra-ui/avatar";
 
 export const SignUp: FC = memo(() => {
-  const onChangeName = () => {};
-  const onChangeEmail = () => {};
-  const onChangePassword = () => {};
-  const onChangePasswordConfirm = () => {};
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [icon, setIcon] = useState("");
+
   const onClickSignUp = () => {};
 
   return (
@@ -39,40 +41,40 @@ export const SignUp: FC = memo(() => {
           params={{
             title: "ニックネーム*",
             type: "text",
-            onChange: onChangeName,
-            value: "",
+            onChange: (e) => setName(e.target.value),
+            value: name,
           }}
         />
         <PrimaryInputArea
           mt={10}
           params={{
             title: "メールアドレス*",
-            type: "Email",
-            onChange: onChangeEmail,
-            value: "",
+            type: "email",
+            onChange: (e) => setEmail(e.target.value),
+            value: email,
           }}
         />
         <PasswordInput
+          mt={10}
           argument={{
-            onChange: onChangePassword,
-            value: "",
+            onChange: (e) => setPassword(e.target.value),
+            value: password,
             title: "パスワード*",
           }}
-          mt={10}
         />
         <PasswordInput
+          mt={10}
           argument={{
-            onChange: onChangePasswordConfirm,
-            value: "",
+            onChange: (e) => setPasswordConfirm(e.target.value),
+            value: passwordConfirm,
             title: "パスワード（確認用）*",
           }}
-          mt={10}
         />
         <Box w={{ base: "90%", md: "50%" }} mt={10} pb={5}>
           <Text color="#0A2463">アイコン</Text>
           <Flex justify="space-between" mt={2}>
             <PrimaryButton>ファイルを選択</PrimaryButton>
-            <Avatar size="lg" />
+            <Avatar size="lg" src={icon} />
           </Flex>
         </Box>
       </Flex>
