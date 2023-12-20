@@ -27,6 +27,14 @@ export const SignUp: FC = memo(() => {
         新規登録
       </Heading>
       <Flex direction="column" align="center" w="100%">
+        <Text
+          color="#0A2463"
+          fontSize="small"
+          textAlign="end"
+          w={{ base: "90%", md: "50%" }}
+        >
+          *必須
+        </Text>
         <PrimaryInputArea
           params={{
             title: "ニックネーム*",
