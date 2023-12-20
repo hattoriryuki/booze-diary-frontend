@@ -10,6 +10,7 @@ export const Header: FC = memo(() => {
   const { isSignedIn } = useContext(LoginUserContext);
 
   const onClickLogin = useCallback(() => navigate("/login"), []);
+  const onClickSignUp = useCallback(() => navigate("/signup"), []);
 
   return (
     <Flex
@@ -32,7 +33,9 @@ export const Header: FC = memo(() => {
             <Link mr={4} onClick={onClickLogin}>
               ログイン
             </Link>
-            <Link mr={4}>新規登録</Link>
+            <Link mr={4} onClick={onClickSignUp}>
+              新規登録
+            </Link>
           </>
         )}
       </Box>
