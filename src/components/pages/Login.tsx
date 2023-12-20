@@ -51,7 +51,11 @@ export const Login: FC = memo(() => {
           }}
         />
         <PasswordInput
-          argument={{ onChange: onChangePassword, value: password }}
+          argument={{
+            onChange: onChangePassword,
+            value: password,
+            title: "パスワード",
+          }}
           mt={10}
         />
       </Flex>

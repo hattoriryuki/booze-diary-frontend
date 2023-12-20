@@ -16,8 +16,8 @@ export const PrimaryInputArea: FC<{ params: Params } & BoxProps> = memo(
 
     return (
       <Box w={{ base: "90%", md: "50%" }} {...props}>
-        <Text>{title}</Text>
-        <PrimaryInput type={type} argument={{ onChange, value }} />
+        <Text color="#0A2463">{title}</Text>
+        <PrimaryInput type={type} onChange={onChange} value={value} />
       </Box>
     );
   }
