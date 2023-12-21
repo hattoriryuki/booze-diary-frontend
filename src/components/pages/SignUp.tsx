@@ -1,10 +1,11 @@
-import { FC, memo, useState } from "react";
+import { ChangeEvent, FC, memo, useRef, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Avatar } from "@chakra-ui/avatar";
+import { Input } from "@chakra-ui/input";
 
 import { PasswordInput } from "../molecules/PasswordInput";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
-import { Avatar } from "@chakra-ui/avatar";
 
 export const SignUp: FC = memo(() => {
   const [name, setName] = useState("");
@@ -12,8 +13,29 @@ export const SignUp: FC = memo(() => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [icon, setIcon] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const onClickSignUp = () => {};
+
+  const onClickFileSelect = () => {
+    if (!inputRef.current) return;
+    inputRef.current.click();
+  };
+
+  const onChangeFileInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length <= 0) return;
+    deployment(files);
+  };
+
+  const deployment = (files: FileList) => {
+    const file = files[0];
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+      setIcon(fileReader.result as string);
+    };
+    fileReader.readAsDataURL(file);
+  };
 
   return (
     <Flex
@@ -73,7 +95,16 @@ export const SignUp: FC = memo(() => {
         <Box w={{ base: "90%", md: "50%" }} mt={10} pb={5}>
           <Text color="#0A2463">アイコン</Text>
           <Flex justify="space-between" mt={2}>
-            <PrimaryButton>ファイルを選択</PrimaryButton>
+            <PrimaryButton onClick={onClickFileSelect}>
+              ファイルを選択
+              <Input
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={onChangeFileInput}
+              />
+            </PrimaryButton>
             <Avatar size="lg" src={icon} />
           </Flex>
         </Box>
