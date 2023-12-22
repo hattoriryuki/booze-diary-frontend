@@ -1,17 +1,12 @@
-import { FC, memo, useContext, useState } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Avatar } from "@chakra-ui/avatar";
-import Cookies from "js-cookie";
 
 import { PasswordInput } from "../molecules/PasswordInput";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
-import { SignUpParams } from "../../types/api/userAuth";
-import { signUpReq } from "../../api/auth";
-import { LoginUserContext } from "../../providers/LoginUserProvider";
-import { useNavigate } from "react-router";
-import { useToastMsg } from "../../hooks/useToastMsg";
+import { useSignUp } from "../../hooks/useSignUp";
 
 export const SignUp: FC = memo(() => {
   const [name, setName] = useState("");
@@ -19,34 +14,17 @@ export const SignUp: FC = memo(() => {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [icon, setIcon] = useState("");
-  const { setIsSignedIn, setCurrentUser } = useContext(LoginUserContext);
-  const navigate = useNavigate();
-  const { showToastMsg } = useToastMsg();
+  const { signUp } = useSignUp();
 
-  const onClickSignUp = async () => {
-    const params: SignUpParams = {
+  const onClickSignUp = useCallback(() => {
+    signUp({
       name,
       email,
       password,
       passwordConfirm,
-      image: icon.replace(/data:.*\/.*;base64,/, ""),
-    };
-
-    try {
-      const res = await signUpReq(params);
-      if (res.status === 200) {
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
-        setIsSignedIn(true);
-        setCurrentUser(res.data.data);
-        navigate("/");
-        showToastMsg({ status: "success", title: "登録が完了しました" });
-      }
-    } catch (err) {
-      showToastMsg({ status: "error", title: "新規登録に失敗しました" });
-    }
-  };
+      image: icon,
+    });
+  }, [name, email, password, passwordConfirm, icon]);
 
   return (
     <Flex
