@@ -3,6 +3,14 @@ export type SignInParams = {
   password: string;
 };
 
+export type SignUpParams = {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  image?: string;
+};
+
 export type User = {
   id: number;
   uid: string;

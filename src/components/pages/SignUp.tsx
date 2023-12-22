@@ -1,17 +1,30 @@
-import { FC, memo } from "react";
+import { FC, memo, useCallback, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Avatar } from "@chakra-ui/avatar";
 
 import { PasswordInput } from "../molecules/PasswordInput";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
-import { Avatar } from "@chakra-ui/avatar";
+import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
+import { useSignUp } from "../../hooks/useSignUp";
 
 export const SignUp: FC = memo(() => {
-  const onChangeName = () => {};
-  const onChangeEmail = () => {};
-  const onChangePassword = () => {};
-  const onChangePasswordConfirm = () => {};
-  const onClickSignUp = () => {};
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [icon, setIcon] = useState("");
+  const { signUp } = useSignUp();
+
+  const onClickSignUp = useCallback(() => {
+    signUp({
+      name,
+      email,
+      password,
+      passwordConfirmation,
+      image: icon,
+    });
+  }, [name, email, password, passwordConfirmation, icon]);
 
   return (
     <Flex
@@ -27,44 +40,52 @@ export const SignUp: FC = memo(() => {
         新規登録
       </Heading>
       <Flex direction="column" align="center" w="100%">
+        <Text
+          color="#0A2463"
+          fontSize="small"
+          textAlign="end"
+          w={{ base: "90%", md: "50%" }}
+        >
+          *必須
+        </Text>
         <PrimaryInputArea
           params={{
             title: "ニックネーム*",
             type: "text",
-            onChange: onChangeName,
-            value: "",
+            onChange: (e) => setName(e.target.value),
+            value: name,
           }}
         />
         <PrimaryInputArea
           mt={10}
           params={{
             title: "メールアドレス*",
-            type: "Email",
-            onChange: onChangeEmail,
-            value: "",
+            type: "email",
+            onChange: (e) => setEmail(e.target.value),
+            value: email,
           }}
         />
         <PasswordInput
+          mt={10}
           argument={{
-            onChange: onChangePassword,
-            value: "",
+            onChange: (e) => setPassword(e.target.value),
+            value: password,
             title: "パスワード*",
           }}
-          mt={10}
         />
         <PasswordInput
+          mt={10}
           argument={{
-            onChange: onChangePasswordConfirm,
-            value: "",
+            onChange: (e) => setPasswordConfirmation(e.target.value),
+            value: passwordConfirmation,
             title: "パスワード（確認用）*",
           }}
-          mt={10}
         />
         <Box w={{ base: "90%", md: "50%" }} mt={10} pb={5}>
           <Text color="#0A2463">アイコン</Text>
           <Flex justify="space-between" mt={2}>
-            <PrimaryButton>ファイルを選択</PrimaryButton>
-            <Avatar size="lg" />
+            <UploadPhotoButton setPhoto={setIcon} />
+            <Avatar size="lg" src={icon} />
           </Flex>
         </Box>
       </Flex>

@@ -1,10 +1,14 @@
 import Cookies from "js-cookie";
 import { client } from "./client";
 
-import { SignInParams } from "../theme/api/userAuth";
+import { SignInParams, SignUpParams } from "../types/api/userAuth";
 
 export const signInReq = (params: SignInParams) => {
   return client.post("auth/sign_in", params);
+};
+
+export const signUpReq = (params: SignUpParams) => {
+  return client.post("auth", params);
 };
 
 export const getCurrentUser = () => {
