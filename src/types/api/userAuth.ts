@@ -7,7 +7,7 @@ export type SignUpParams = {
   name: string;
   email: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirmation: string;
   image?: string;
 };
 

@@ -12,7 +12,7 @@ export const SignUp: FC = memo(() => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [icon, setIcon] = useState("");
   const { signUp } = useSignUp();
 
@@ -21,10 +21,10 @@ export const SignUp: FC = memo(() => {
       name,
       email,
       password,
-      passwordConfirm,
+      passwordConfirmation,
       image: icon,
     });
-  }, [name, email, password, passwordConfirm, icon]);
+  }, [name, email, password, passwordConfirmation, icon]);
 
   return (
     <Flex
@@ -76,8 +76,8 @@ export const SignUp: FC = memo(() => {
         <PasswordInput
           mt={10}
           argument={{
-            onChange: (e) => setPasswordConfirm(e.target.value),
-            value: passwordConfirm,
+            onChange: (e) => setPasswordConfirmation(e.target.value),
+            value: passwordConfirmation,
             title: "パスワード（確認用）*",
           }}
         />
