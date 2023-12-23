@@ -6,8 +6,10 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import { drinkData } from "./Top";
 import { DrinkCard } from "../organisms/DrinkCard";
+import { useNavigate } from "react-router";
 
 export const Index: FC = memo(() => {
+  const navigate = useNavigate();
   const page = [1, 2, 3, 4];
 
   return (
@@ -22,6 +24,7 @@ export const Index: FC = memo(() => {
           zIndex={10}
           p={0}
           _hover={{ bg: "none", color: "gray.500" }}
+          onClick={() => navigate("/create")}
         >
           <FontAwesomeIcon icon={faPenToSquare} />
         </Button>

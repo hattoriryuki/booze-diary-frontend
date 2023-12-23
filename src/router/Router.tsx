@@ -7,6 +7,7 @@ import { Top } from "../components/pages/Top";
 import { LoginUserProvider } from "../providers/LoginUserProvider";
 import { SignUp } from "../components/pages/SignUp";
 import { Index } from "../components/pages/Index";
+import { PostCreation } from "../components/pages/PostCreation";
 
 export const Router: FC = memo(() => {
   return (
@@ -41,6 +42,14 @@ export const Router: FC = memo(() => {
           element={
             <DefaultLayout>
               <Index />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/create"
+          element={
+            <DefaultLayout>
+              <PostCreation />
             </DefaultLayout>
           }
         />
