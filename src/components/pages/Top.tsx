@@ -15,7 +15,7 @@ import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-const drinkData = [
+export const drinkData = [
   {
     image: topImage,
     username: "お酒太郎",
@@ -30,6 +30,16 @@ const drinkData = [
     image: topImage,
     username: "三郎",
     name: "メーカーズマーク",
+  },
+  {
+    image: topImage,
+    username: "四郎",
+    name: "オールドクロウ",
+  },
+  {
+    image: topImage,
+    username: "四郎",
+    name: "オールドクロウ",
   },
   {
     image: topImage,
