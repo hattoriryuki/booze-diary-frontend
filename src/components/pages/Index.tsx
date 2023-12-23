@@ -12,7 +12,7 @@ export const Index: FC = memo(() => {
 
   return (
     <Stack h="calc(100vh - 120px)" align="center" mt={16} overflowY="scroll">
-      <Flex position="relative" w="100%" justify="center" align="center">
+      <Flex position="relative" w="100%" justify="center" align="center" mt={8}>
         <Heading fontSize="2xl">みんなの投稿</Heading>
         <Button
           position="absolute"
