@@ -6,6 +6,7 @@ import { Login } from "../components/pages/Login";
 import { Top } from "../components/pages/Top";
 import { LoginUserProvider } from "../providers/LoginUserProvider";
 import { SignUp } from "../components/pages/SignUp";
+import { Index } from "../components/pages/Index";
 
 export const Router: FC = memo(() => {
   return (
@@ -32,6 +33,14 @@ export const Router: FC = memo(() => {
           element={
             <DefaultLayout>
               <SignUp />
+            </DefaultLayout>
+          }
+        />
+        <Route
+          path="/index"
+          element={
+            <DefaultLayout>
+              <Index />
             </DefaultLayout>
           }
         />

@@ -9,12 +9,13 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 
 import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 
-const drinkData = [
+export const drinkData = [
   {
     image: topImage,
     username: "お酒太郎",
@@ -35,9 +36,21 @@ const drinkData = [
     username: "四郎",
     name: "オールドクロウ",
   },
+  {
+    image: topImage,
+    username: "四郎",
+    name: "オールドクロウ",
+  },
+  {
+    image: topImage,
+    username: "四郎",
+    name: "オールドクロウ",
+  },
 ];
 
 export const Top: FC = memo(() => {
+  const navigate = useNavigate();
+
   return (
     <Box w="100vw" overflow="scroll" pb={10}>
       <Image src={topImage} alt="Top image" w="100%" />
@@ -67,6 +80,7 @@ export const Top: FC = memo(() => {
           borderRadius="30px"
           w={{ base: "50%", md: "30%" }}
           mt={{ base: "2", md: "4" }}
+          onClick={() => navigate("/index")}
         >
           全ての投稿
         </Button>
