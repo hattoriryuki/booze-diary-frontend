@@ -34,7 +34,7 @@ export const SignUp: FC = memo(() => {
       mt={16}
       pb={10}
       w="100%"
-      h="calc(100vh)"
+      h="100vh"
     >
       <Heading color="#0a2463" mt={{ base: "4", md: "8" }}>
         新規登録
