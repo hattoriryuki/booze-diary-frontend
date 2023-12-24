@@ -1,13 +1,14 @@
 import { FC, memo, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faImage } from "@fortawesome/free-regular-svg-icons";
+import { faStar } from "@fortawesome/free-regular-svg-icons";
 
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
 import { Image } from "@chakra-ui/image";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { Button } from "@chakra-ui/button";
+import { ImageBox } from "../atoms/ImageBox";
 
 export const PostCreation: FC = memo(() => {
   const [title, setTitle] = useState("");
@@ -133,18 +134,7 @@ export const PostCreation: FC = memo(() => {
         {image ? (
           <Image src={image} h="150px" mt={6} />
         ) : (
-          <Box
-            fontSize="6xl"
-            mt={8}
-            border="1px"
-            h="150px"
-            w="200px"
-            py={6}
-            px={8}
-            textAlign="center"
-          >
-            <FontAwesomeIcon icon={faImage} />
-          </Box>
+          <ImageBox />
         )}
       </Flex>
       <PrimaryButton mt={10} px={8}>
