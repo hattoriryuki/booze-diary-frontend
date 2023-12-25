@@ -46,7 +46,7 @@ export const Router: FC = memo(() => {
           }
         />
         <Route
-          path="/create"
+          path="/new"
           element={
             <DefaultLayout>
               <PostCreation />
