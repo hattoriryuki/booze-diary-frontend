@@ -1,14 +1,12 @@
 import { FC, memo, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
 
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
 import { Image } from "@chakra-ui/image";
 import { PrimaryButton } from "../atoms/PrimaryButton";
-import { Button } from "@chakra-ui/button";
 import { ImageBox } from "../atoms/ImageBox";
+import { StarButtons } from "../molecules/StarButtons";
 
 export const PostCreation: FC = memo(() => {
   const [title, setTitle] = useState("");
@@ -74,51 +72,7 @@ export const PostCreation: FC = memo(() => {
       >
         <Text>おすすめ度*</Text>
         <Flex>
-          <Button
-            bg="none"
-            px={0}
-            minW="none"
-            fontSize="x-large"
-            _hover={{ border: "1px", borderColor: "white" }}
-          >
-            <FontAwesomeIcon icon={faStar} />
-          </Button>
-          <Button
-            bg="none"
-            px={0}
-            minW="none"
-            fontSize="x-large"
-            _hover={{ border: "1px", borderColor: "white" }}
-          >
-            <FontAwesomeIcon icon={faStar} />
-          </Button>
-          <Button
-            bg="none"
-            px={0}
-            minW="none"
-            fontSize="x-large"
-            _hover={{ border: "1px", borderColor: "white" }}
-          >
-            <FontAwesomeIcon icon={faStar} />
-          </Button>
-          <Button
-            bg="none"
-            px={0}
-            minW="none"
-            fontSize="x-large"
-            _hover={{ border: "1px", borderColor: "white" }}
-          >
-            <FontAwesomeIcon icon={faStar} />
-          </Button>
-          <Button
-            bg="none"
-            px={0}
-            minW="none"
-            fontSize="x-large"
-            _hover={{ border: "1px", borderColor: "white" }}
-          >
-            <FontAwesomeIcon icon={faStar} />
-          </Button>
+          <StarButtons />
         </Flex>
       </Box>
       <Flex
