@@ -1,5 +1,6 @@
-import { FC, memo, useState } from "react";
+import { FC, memo, useContext, useEffect, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { useNavigate } from "react-router";
 
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
@@ -7,12 +8,21 @@ import { Image } from "@chakra-ui/image";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { ImageBox } from "../atoms/ImageBox";
 import { StarButtons } from "../molecules/StarButtons";
+import { LoginUserContext } from "../../providers/LoginUserProvider";
 
 export const PostCreation: FC = memo(() => {
   const [title, setTitle] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
+  const { isSignedIn } = useContext(LoginUserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isSignedIn) {
+      navigate("/login");
+    }
+  }, [isSignedIn]);
 
   return (
     <Flex
@@ -85,11 +95,7 @@ export const PostCreation: FC = memo(() => {
           <Text>写真*</Text>
           <UploadPhotoButton setPhoto={setImage} />
         </Box>
-        {image ? (
-          <Image src={image} h="150px" mt={6} />
-        ) : (
-          <ImageBox />
-        )}
+        {image ? <Image src={image} h="150px" mt={6} /> : <ImageBox />}
       </Flex>
       <PrimaryButton mt={10} px={8}>
         投稿
