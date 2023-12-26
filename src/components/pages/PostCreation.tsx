@@ -1,28 +1,40 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
 import { useNavigate } from "react-router";
 
 import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
-import { Image } from "@chakra-ui/image";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { ImageBox } from "../atoms/ImageBox";
 import { StarButtons } from "../molecules/StarButtons";
 import { LoginUserContext } from "../../providers/LoginUserProvider";
+import { useCreatePost } from "../../hooks/useCreatePost";
 
 export const PostCreation: FC = memo(() => {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
-  const { isSignedIn } = useContext(LoginUserContext);
+  const { isSignedIn, currentUser } = useContext(LoginUserContext);
   const navigate = useNavigate();
+  const { createPost } = useCreatePost();
 
   useEffect(() => {
-    if (!isSignedIn) {
-      navigate("/login");
-    }
+    if (!isSignedIn) navigate("/login");
   }, [isSignedIn]);
+
+  const onClickPost = () => {
+    if (!currentUser) return;
+    createPost({
+      name,
+      quantity,
+      price,
+      image,
+      recommend: 0,
+      user_id: currentUser.id,
+    });
+  };
 
   return (
     <Flex
@@ -50,8 +62,8 @@ export const PostCreation: FC = memo(() => {
           params={{
             title: "タイトル*",
             type: "text",
-            value: title,
-            onChange: (e) => setTitle(e.target.value),
+            value: name,
+            onChange: (e) => setName(e.target.value),
           }}
         />
         <PrimaryInputArea
@@ -97,7 +109,7 @@ export const PostCreation: FC = memo(() => {
         </Box>
         {image ? <Image src={image} h="150px" mt={6} /> : <ImageBox />}
       </Flex>
-      <PrimaryButton mt={10} px={8}>
+      <PrimaryButton mt={10} px={8} onClick={onClickPost}>
         投稿
       </PrimaryButton>
     </Flex>
