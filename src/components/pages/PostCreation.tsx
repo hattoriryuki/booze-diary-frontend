@@ -32,7 +32,6 @@ export const PostCreation: FC = memo(() => {
       price,
       image,
       recommend: 0,
-      user_id: currentUser.id,
     });
   };
 
