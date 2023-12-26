@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+
 import { client } from "./client";
 
 import { SignInParams, SignUpParams } from "../types/api/userAuth";
