@@ -16,6 +16,7 @@ export const PostCreation: FC = memo(() => {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState("");
+  const [recommend, setRecommend] = useState(0);
   const { isSignedIn, currentUser } = useContext(LoginUserContext);
   const navigate = useNavigate();
   const { createPost } = useCreatePost();
@@ -31,7 +32,7 @@ export const PostCreation: FC = memo(() => {
       quantity,
       price,
       image,
-      recommend: 0,
+      recommend,
     });
   };
 
@@ -93,7 +94,7 @@ export const PostCreation: FC = memo(() => {
       >
         <Text>おすすめ度*</Text>
         <Flex>
-          <StarButtons />
+          <StarButtons setRecommend={setRecommend} />
         </Flex>
       </Box>
       <Flex
