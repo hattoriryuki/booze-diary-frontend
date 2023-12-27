@@ -21,7 +21,7 @@ export const useSignUp = () => {
         Cookies.set("_uid", res.headers["uid"]);
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-        navigate("/");
+        navigate("/index");
         showToastMsg({ status: "success", title: "登録が完了しました" });
       }
     } catch (err) {

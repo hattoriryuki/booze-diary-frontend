@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
-import { client } from "./client";
 
+import { client, headers } from "./client";
 import { SignInParams, SignUpParams } from "../types/api/userAuth";
 
 export const signInReq = (params: SignInParams) => {
@@ -19,10 +19,6 @@ export const getCurrentUser = () => {
   )
     return;
   return client.get("/auth/sessions", {
-    headers: {
-      "access-token": Cookies.get("_access_token"),
-      client: Cookies.get("_client"),
-      uid: Cookies.get("_uid"),
-    },
+    headers: headers,
   });
 };
