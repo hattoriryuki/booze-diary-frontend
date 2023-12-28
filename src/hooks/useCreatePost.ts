@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router";
 
 import { createPostReq } from "../api/postRequest";
-import { createPostParams } from "../types/api/post";
+import { PostParams } from "../types/api/post";
 import { useToastMsg } from "./useToastMsg";
 
 export const useCreatePost = () => {
   const navigate = useNavigate();
   const { showToastMsg } = useToastMsg();
 
-  const createPost = async (params: createPostParams) => {
+  const createPost = async (params: PostParams) => {
     try {
       const res = await createPostReq(params);
       navigate("/index");

@@ -1,4 +1,4 @@
-import { createPostParams } from "../types/api/post";
+import { PostParams } from "../types/api/post";
 import { client, headers } from "./client";
 
 export const getListReq = () => {
@@ -9,7 +9,7 @@ export const getDetailReq = (id: number) => {
   return client.get(`/posts/${id}`);
 };
 
-export const createPostReq = (params: createPostParams) => {
+export const createPostReq = (params: PostParams) => {
   return client.post("/posts", params, {
     headers: headers,
   });

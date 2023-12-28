@@ -1,4 +1,4 @@
-export type createPostParams = {
+export type PostParams = {
   name: string;
   quantity: string;
   price: string;
