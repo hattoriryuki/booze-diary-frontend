@@ -4,4 +4,6 @@ export type PostParams = {
   price: string;
   recommend: number;
   image: string;
+  userId: number;
+  username?: string;
 };

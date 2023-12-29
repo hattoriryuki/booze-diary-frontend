@@ -1,18 +1,40 @@
-import { FC, memo, useCallback, useContext } from "react";
+import { FC, memo, useContext, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router";
 
-import { drinkData } from "./Top";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { LoginUserContext } from "../../providers/LoginUserProvider";
+import { useGetAllPosts } from "../../hooks/useGetAllPosts";
+import { PostParams } from "../../types/api/post";
+import { useGetAllUsers } from "../../hooks/useGetAllUsers";
+import { User } from "../../types/api/userAuth";
 
 export const Index: FC = memo(() => {
+  const [posts, setPosts] = useState<PostParams[]>([]);
+  const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const { isSignedIn } = useContext(LoginUserContext);
   const navigate = useNavigate();
+  const { getPosts } = useGetAllPosts({ setPosts: setPosts });
+  const { getUsers } = useGetAllUsers({ setUsers: setUsers });
   const page = [1, 2, 3, 4];
+
+  useEffect(() => {
+    getPosts();
+    getUsers();
+  }, []);
+
+  useEffect(() => {
+    const customPosts = posts.map((data) => {
+      const targetUser = users.find((user) => user.id === data.userId);
+      if (targetUser) data.username = targetUser.name;
+      return data;
+    });
+    setSelectedPosts(customPosts);
+  }, [posts]);
 
   return (
     <Stack h="calc(100vh - 120px)" align="center" mt={16} overflowY="scroll">
@@ -34,7 +56,7 @@ export const Index: FC = memo(() => {
         )}
       </Flex>
       <Wrap w="90%" justify="center" mt={4}>
-        {drinkData.map((data, index) => (
+        {selectedPosts.map((data, index) => (
           <WrapItem key={index}>
             <DrinkCard
               image={data.image}

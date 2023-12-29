@@ -8,7 +8,7 @@ export const useCreatePost = () => {
   const navigate = useNavigate();
   const { showToastMsg } = useToastMsg();
 
-  const createPost = async (params: PostParams) => {
+  const createPost = async (params: Omit<PostParams, "userId">) => {
     try {
       const res = await createPostReq(params);
       navigate("/index");

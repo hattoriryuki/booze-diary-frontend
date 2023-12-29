@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 import { PostParams } from "../types/api/post";
 import { getListReq } from "../api/postRequest";
 import { useToastMsg } from "./useToastMsg";
 
-export const useGetAllPosts = () => {
-  const [posts, setPosts] = useState<PostParams[]>([]);
+type Props = {
+  setPosts: Dispatch<SetStateAction<PostParams[]>>
+};
+
+export const useGetAllPosts = (props: Props) => {
+  const { setPosts } = props;
   const { showToastMsg } = useToastMsg();
 
   const getPosts = async () => {
@@ -16,5 +20,5 @@ export const useGetAllPosts = () => {
       showToastMsg({ status: "error", title: "投稿を取得できませんでした" });
     }
   };
-  return { getPosts, posts };
+  return { getPosts };
 };

@@ -3,7 +3,7 @@ import { Avatar, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 type Props = {
   image: string;
-  username: string;
+  username: string | undefined;
   name: string;
   avatar?: string;
 };
