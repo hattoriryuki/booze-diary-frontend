@@ -1,6 +1,6 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/layout";
+import { Flex, Heading, Stack, SimpleGrid, Box } from "@chakra-ui/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router";
@@ -58,19 +58,19 @@ export const Index: FC = memo(() => {
           </Button>
         )}
       </Flex>
-      <Wrap w="90%" justify="center" mt={4}>
+      <SimpleGrid mt={4} columns={{ base: 1, md: 4 }} gap={4}>
         {selectedPosts.map((data, index) => (
-          <WrapItem key={index}>
+          <Box key={index}>
             <DrinkCard
               image={data.image}
               username={data.username}
               name={data.name}
               avatar={data.avatar}
             />
-          </WrapItem>
+          </Box>
         ))}
-      </Wrap>
-      <Flex mt={8} mb={4}>
+      </SimpleGrid>
+      <Flex mt={10} mb={4}>
         {page.map((num) => (
           <Button
             key={num}
