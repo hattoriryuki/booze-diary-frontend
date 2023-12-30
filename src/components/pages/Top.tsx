@@ -5,9 +5,8 @@ import {
   Flex,
   Heading,
   Image,
+  SimpleGrid,
   Text,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
@@ -65,17 +64,21 @@ export const Top: FC = memo(() => {
         <Heading mt={4} fontSize={{ base: "sm", md: "2xl" }}>
           最新の投稿
         </Heading>
-        <Wrap justify="center" w="90%" mt={{ base: "1", md: "2" }}>
+        <SimpleGrid
+          mt={{ base: "1", md: "2" }}
+          columns={{ base: 1, md: 4 }}
+          gap={4}
+        >
           {drinkData.map((data, index) => (
-            <WrapItem key={index}>
+            <Box key={index}>
               <DrinkCard
                 image={data.image}
                 username={data.username}
                 name={data.name}
               />
-            </WrapItem>
+            </Box>
           ))}
-        </Wrap>
+        </SimpleGrid>
         <Button
           borderRadius="30px"
           w={{ base: "50%", md: "30%" }}
