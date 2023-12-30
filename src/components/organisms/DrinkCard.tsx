@@ -33,7 +33,7 @@ export const DrinkCard: FC<Props> = memo((props) => {
         borderBottomRadius="10px"
       >
         <Flex position="absolute" top="-16px" left={2} alignItems="center">
-          <Avatar size="sm" name={avatar} />
+          <Avatar size="sm" src={avatar} />
           <Text
             ml={2}
             color="white"

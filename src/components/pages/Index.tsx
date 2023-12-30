@@ -30,7 +30,10 @@ export const Index: FC = memo(() => {
   useEffect(() => {
     const customPosts = posts.map((data) => {
       const targetUser = users.find((user) => user.id === data.userId);
-      if (targetUser) data.username = targetUser.name;
+      if (targetUser) {
+        data.username = targetUser.name;
+        data.avatar = targetUser.image;
+      }
       return data;
     });
     setSelectedPosts(customPosts);
@@ -62,6 +65,7 @@ export const Index: FC = memo(() => {
               image={data.image}
               username={data.username}
               name={data.name}
+              avatar={data.avatar}
             />
           </WrapItem>
         ))}

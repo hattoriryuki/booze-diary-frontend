@@ -6,4 +6,5 @@ export type PostParams = {
   image: string;
   userId: number;
   username?: string;
+  avatar?: string;
 };
