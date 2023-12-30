@@ -13,7 +13,15 @@ export const DrinkCard: FC<Props> = memo((props) => {
 
   return (
     <Box position="relative" cursor="pointer">
-      <Image src={image} alt="Drink image" w="300px" borderRadius="10px" />
+      <Image
+        src={image}
+        alt="Drink image"
+        w="300px"
+        h="200px"
+        borderRadius="10px"
+        aspectRatio="16 / 9"
+        objectFit="cover"
+      />
       <Flex
         position="absolute"
         bottom={0}
