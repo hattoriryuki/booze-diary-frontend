@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 import { PostParams } from "../types/api/post";
 import { client, headers } from "./client";
 
@@ -13,6 +15,10 @@ export const createPostReq = (
   params: Omit<PostParams, "userId" | "updatedAt">
 ) => {
   return client.post("/posts", params, {
-    headers: headers,
+    headers: {
+      "access-token": Cookies.get("_access_token"),
+      client: Cookies.get("_client"),
+      uid: Cookies.get("_uid"),
+    },
   });
 };
