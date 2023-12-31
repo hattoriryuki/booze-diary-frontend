@@ -7,4 +7,5 @@ export type PostParams = {
   userId: number;
   username?: string;
   avatar?: string;
+  updatedAt: string;
 };
