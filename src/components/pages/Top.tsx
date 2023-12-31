@@ -54,7 +54,7 @@ export const Top: FC = memo(() => {
           <Text>Booze Diaryはお酒好きのためのSNSです。</Text>
           <Text>あなたのお酒ライフがより良いものとなります。</Text>
         </Box>
-        <Heading mt={4} fontSize={{ base: "sm", md: "2xl" }}>
+        <Heading mt={10} fontSize={{ base: "sm", md: "xl" }}>
           最新の投稿
         </Heading>
         <SimpleGrid

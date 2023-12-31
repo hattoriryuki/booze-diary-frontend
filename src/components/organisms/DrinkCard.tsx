@@ -12,7 +12,17 @@ export const DrinkCard: FC<Props> = memo((props) => {
   const { image, username, name, avatar } = props;
 
   return (
-    <Box position="relative" cursor="pointer">
+    <Box
+      position="relative"
+      borderRadius="10px"
+      cursor="pointer"
+      transition="all .3s"
+      _hover={{
+        position: "relative",
+        top: "-3px",
+        boxShadow: "0 2px 3px rgba(0, 0, 0, 0.3)",
+      }}
+    >
       <Image
         src={image}
         alt="Drink image"
