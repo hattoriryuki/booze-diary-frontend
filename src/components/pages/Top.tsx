@@ -18,39 +18,6 @@ import { User } from "../../types/api/userAuth";
 import { useGetAllPosts } from "../../hooks/useGetAllPosts";
 import { useGetAllUsers } from "../../hooks/useGetAllUsers";
 
-export const drinkData = [
-  {
-    image: topImage,
-    username: "お酒太郎",
-    name: "ワイルドターキー",
-  },
-  {
-    image: topImage,
-    username: "二郎",
-    name: "ジャックダニエル",
-  },
-  {
-    image: topImage,
-    username: "三郎",
-    name: "メーカーズマーク",
-  },
-  {
-    image: topImage,
-    username: "四郎",
-    name: "オールドクロウ",
-  },
-  {
-    image: topImage,
-    username: "四郎",
-    name: "オールドクロウ",
-  },
-  {
-    image: topImage,
-    username: "四郎",
-    name: "オールドクロウ",
-  },
-];
-
 export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
@@ -73,7 +40,7 @@ export const Top: FC = memo(() => {
       }
       return data;
     });
-    setSelectedPosts(customPosts);
+    setSelectedPosts(customPosts.slice(0, 8));
   }, [posts]);
 
   return (
