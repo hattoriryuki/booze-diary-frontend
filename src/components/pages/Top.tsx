@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -13,6 +13,10 @@ import { useNavigate } from "react-router";
 import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/PrimaryButton";
+import { PostParams } from "../../types/api/post";
+import { User } from "../../types/api/userAuth";
+import { useGetAllPosts } from "../../hooks/useGetAllPosts";
+import { useGetAllUsers } from "../../hooks/useGetAllUsers";
 
 export const drinkData = [
   {
@@ -48,7 +52,29 @@ export const drinkData = [
 ];
 
 export const Top: FC = memo(() => {
+  const [posts, setPosts] = useState<PostParams[]>([]);
+  const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
+  const { getPosts } = useGetAllPosts({ setPosts: setPosts });
+  const { getUsers } = useGetAllUsers({ setUsers: setUsers });
+
+  useEffect(() => {
+    getPosts();
+    getUsers();
+  }, []);
+
+  useEffect(() => {
+    const customPosts = posts.map((data) => {
+      const targetUser = users.find((user) => user.id === data.userId);
+      if (targetUser) {
+        data.username = targetUser.name;
+        data.avatar = targetUser.image;
+      }
+      return data;
+    });
+    setSelectedPosts(customPosts);
+  }, [posts]);
 
   return (
     <Box w="100vw" overflow="scroll" pb={10}>
@@ -65,16 +91,17 @@ export const Top: FC = memo(() => {
           最新の投稿
         </Heading>
         <SimpleGrid
-          mt={{ base: "1", md: "2" }}
+          mt={{ base: "1", md: "3" }}
           columns={{ base: 1, md: 4 }}
           gap={4}
         >
-          {drinkData.map((data, index) => (
+          {selectedPosts.map((data, index) => (
             <Box key={index}>
               <DrinkCard
                 image={data.image}
                 username={data.username}
                 name={data.name}
+                avatar={data.avatar}
               />
             </Box>
           ))}
