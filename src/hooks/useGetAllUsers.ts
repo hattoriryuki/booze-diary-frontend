@@ -12,7 +12,7 @@ export const useGetAllUsers = (props: Props) => {
 
   const getUsers = useCallback(() => {
     axios
-      .get("http://localhost:3001/api/v1/users")
+      .get(`${process.env.REACT_APP_USER_CLIENT}`)
       .then((res) => setUsers(res.data))
       .catch(() => {
         console.log("User acquisition error");
