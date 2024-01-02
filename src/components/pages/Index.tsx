@@ -41,8 +41,8 @@ export const Index: FC = memo(() => {
         )}
       </Flex>
       <SimpleGrid mt={4} columns={{ base: 1, md: 4 }} gap={4}>
-        {posts.map((data, index) => (
-          <Box key={index}>
+        {posts.map((data) => (
+          <Box key={data.id}>
             <DrinkCard
               image={data.image}
               username={data.username}

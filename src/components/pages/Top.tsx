@@ -49,8 +49,8 @@ export const Top: FC = memo(() => {
           columns={{ base: 1, md: 4 }}
           gap={4}
         >
-          {selectedPosts.map((data, index) => (
-            <Box key={index}>
+          {selectedPosts.map((data) => (
+            <Box key={data.id}>
               <DrinkCard
                 image={data.image}
                 username={data.username}

@@ -9,7 +9,7 @@ export const useCreatePost = () => {
   const { showToastMsg } = useToastMsg();
 
   const createPost = async (
-    params: Omit<PostParams, "userId" | "updatedAt">
+    params: Omit<PostParams, "id" | "userId" | "updatedAt">
   ) => {
     try {
       const res = await createPostReq(params);
