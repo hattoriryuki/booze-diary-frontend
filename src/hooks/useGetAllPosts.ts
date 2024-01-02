@@ -1,18 +1,32 @@
-import { Dispatch, SetStateAction } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import { PostParams } from "../types/api/post";
 import { getListReq } from "../api/postRequest";
 import { useToastMsg } from "./useToastMsg";
+import { User } from "../types/api/userAuth";
+import { useGetAllUsers } from "./useGetAllUsers";
 
 type Props = {
-  setPosts: Dispatch<SetStateAction<PostParams[]>>;
+  setTargetPosts: Dispatch<SetStateAction<PostParams[]>>;
 };
 
 export const useGetAllPosts = (props: Props) => {
-  const { setPosts } = props;
+  const { setTargetPosts } = props;
+  const [users, setUsers] = useState<User[]>([]);
   const { showToastMsg } = useToastMsg();
+  const { getUsers } = useGetAllUsers({ setUsers: setUsers });
 
-  const getPosts = async () => {
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getPosts = useCallback(async () => {
     try {
       const res = await getListReq();
       const data: PostParams[] = res.data;
@@ -25,10 +39,19 @@ export const useGetAllPosts = (props: Props) => {
         }
         return 0;
       });
-      setPosts(sorted);
+      const customPosts = sorted.map((data) => {
+        const targetUser = users.find((user) => user.id === data.userId);
+        if (targetUser) {
+          data.username = targetUser.name;
+          data.avatar = targetUser.image;
+        }
+        return data;
+      });
+      setTargetPosts(customPosts);
     } catch (e) {
       showToastMsg({ status: "error", title: "投稿を取得できませんでした" });
     }
-  };
+  }, []);
+
   return { getPosts };
 };

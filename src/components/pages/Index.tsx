@@ -9,35 +9,17 @@ import { DrinkCard } from "../organisms/DrinkCard";
 import { LoginUserContext } from "../../providers/LoginUserProvider";
 import { useGetAllPosts } from "../../hooks/useGetAllPosts";
 import { PostParams } from "../../types/api/post";
-import { useGetAllUsers } from "../../hooks/useGetAllUsers";
-import { User } from "../../types/api/userAuth";
 
 export const Index: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
-  const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
   const { isSignedIn } = useContext(LoginUserContext);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setPosts: setPosts });
-  const { getUsers } = useGetAllUsers({ setUsers: setUsers });
+  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
   const page = [1, 2, 3, 4];
 
   useEffect(() => {
     getPosts();
-    getUsers();
   }, []);
-
-  useEffect(() => {
-    const customPosts = posts.map((data) => {
-      const targetUser = users.find((user) => user.id === data.userId);
-      if (targetUser) {
-        data.username = targetUser.name;
-        data.avatar = targetUser.image;
-      }
-      return data;
-    });
-    setSelectedPosts(customPosts);
-  }, [posts]);
 
   return (
     <Stack h="calc(100vh - 120px)" align="center" mt={16} overflowY="scroll">
@@ -59,7 +41,7 @@ export const Index: FC = memo(() => {
         )}
       </Flex>
       <SimpleGrid mt={4} columns={{ base: 1, md: 4 }} gap={4}>
-        {selectedPosts.map((data, index) => (
+        {posts.map((data, index) => (
           <Box key={index}>
             <DrinkCard
               image={data.image}

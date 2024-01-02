@@ -14,33 +14,20 @@ import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { PostParams } from "../../types/api/post";
-import { User } from "../../types/api/userAuth";
 import { useGetAllPosts } from "../../hooks/useGetAllPosts";
-import { useGetAllUsers } from "../../hooks/useGetAllUsers";
 
 export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setPosts: setPosts });
-  const { getUsers } = useGetAllUsers({ setUsers: setUsers });
+  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
 
   useEffect(() => {
     getPosts();
-    getUsers();
   }, []);
 
   useEffect(() => {
-    const customPosts = posts.map((data) => {
-      const targetUser = users.find((user) => user.id === data.userId);
-      if (targetUser) {
-        data.username = targetUser.name;
-        data.avatar = targetUser.image;
-      }
-      return data;
-    });
-    setSelectedPosts(customPosts.slice(0, 8));
+    setSelectedPosts(posts.slice(0, 8));
   }, [posts]);
 
   return (
