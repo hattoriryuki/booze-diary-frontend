@@ -3,7 +3,7 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
-  useState,
+  useRef,
 } from "react";
 
 import { PostParams } from "../types/api/post";
@@ -18,15 +18,14 @@ type Props = {
 
 export const useGetAllPosts = (props: Props) => {
   const { setTargetPosts } = props;
-  const [users, setUsers] = useState<User[]>([]);
+  const userRef = useRef<User[]>([]);
   const { showToastMsg } = useToastMsg();
-  const { getUsers } = useGetAllUsers({ setUsers: setUsers });
+  const { getUsers } = useGetAllUsers({ userRef: userRef });
 
-  useEffect(() => {
-    getUsers();
-  }, []);
+  useEffect(() => {}, []);
 
   const getPosts = useCallback(async () => {
+    getUsers();
     try {
       const res = await getListReq();
       const data: PostParams[] = res.data;
@@ -40,7 +39,9 @@ export const useGetAllPosts = (props: Props) => {
         return 0;
       });
       const customPosts = sorted.map((data) => {
-        const targetUser = users.find((user) => user.id === data.userId);
+        const targetUser = userRef.current.find(
+          (user) => user.id === data.userId
+        );
         if (targetUser) {
           data.username = targetUser.name;
           data.avatar = targetUser.image;
