@@ -22,7 +22,7 @@ export const Index: FC = memo(() => {
   }, []);
 
   return (
-    <Stack h="calc(100vh - 120px)" align="center" mt={16} overflowY="scroll">
+    <Stack align="center" mt={16} overflowY="scroll">
       <Flex position="relative" w="100%" justify="center" align="center" mt={8}>
         <Heading fontSize="2xl">みんなの投稿</Heading>
         {isSignedIn && (
@@ -40,7 +40,12 @@ export const Index: FC = memo(() => {
           </Button>
         )}
       </Flex>
-      <SimpleGrid mt={4} columns={{ base: 1, md: 4 }} gap={4}>
+      <SimpleGrid
+        mt={4}
+        columns={{ base: 1, md: 4 }}
+        gap={4}
+        minH={{ base: "none", md: "calc(100vh - 300px)" }}
+      >
         {posts.map((data) => (
           <Box key={data.id}>
             <DrinkCard
