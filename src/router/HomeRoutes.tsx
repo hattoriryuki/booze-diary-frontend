@@ -1,3 +1,4 @@
+import { Detail } from "../components/pages/Detail";
 import { Index } from "../components/pages/Index";
 import { Login } from "../components/pages/Login";
 import { PostCreation } from "../components/pages/PostCreation";
@@ -24,5 +25,9 @@ export const homeRoutes = [
   {
     path: "/new",
     element: <PostCreation />,
+  },
+  {
+    path: "/post/:id",
+    element: <Detail />,
   },
 ];
