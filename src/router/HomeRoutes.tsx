@@ -18,7 +18,7 @@ export const homeRoutes = [
     element: <SignUp />,
   },
   {
-    path: "/index",
+    path: "/posts",
     element: <Index />,
   },
   {

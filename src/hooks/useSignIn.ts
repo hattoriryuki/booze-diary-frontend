@@ -32,7 +32,7 @@ export const useSignIn = () => {
         Cookies.set("_uid", res.headers["uid"]);
         setIsSignedIn(true);
         setCurrentUser(res.data.data);
-        navigate("/index");
+        navigate("/posts");
         showToastMsg({ status: "success", title: "ログインしました" });
       }
     } catch (err) {

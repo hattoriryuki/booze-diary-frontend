@@ -13,7 +13,7 @@ export const useCreatePost = () => {
   ) => {
     try {
       const res = await createPostReq(params);
-      navigate("/index");
+      navigate("/posts");
       showToastMsg({ status: "success", title: "投稿しました" });
     } catch (err) {
       showToastMsg({ status: "error", title: "投稿に失敗しました" });

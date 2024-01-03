@@ -64,7 +64,7 @@ export const Top: FC = memo(() => {
           borderRadius="30px"
           w={{ base: "50%", md: "30%" }}
           mt={{ base: "2", md: "4" }}
-          onClick={() => navigate("/index")}
+          onClick={() => navigate("/posts")}
         >
           全ての投稿
         </Button>
