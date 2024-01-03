@@ -1,16 +1,24 @@
-import { createPostParams } from "../types/api/post";
+import Cookies from "js-cookie";
+
+import { PostParams } from "../types/api/post";
 import { client, headers } from "./client";
 
 export const getListReq = () => {
-  return client.get("/posts");
+  return client.get("/posts", { headers: headers });
 };
 
 export const getDetailReq = (id: number) => {
   return client.get(`/posts/${id}`);
 };
 
-export const createPostReq = (params: createPostParams) => {
+export const createPostReq = (
+  params: Omit<PostParams, "id" | "userId" | "updatedAt">
+) => {
   return client.post("/posts", params, {
-    headers: headers,
+    headers: {
+      "access-token": Cookies.get("_access_token"),
+      client: Cookies.get("_client"),
+      uid: Cookies.get("_uid"),
+    },
   });
 };

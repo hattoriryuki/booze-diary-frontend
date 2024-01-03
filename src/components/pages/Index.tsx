@@ -1,21 +1,28 @@
-import { FC, memo, useCallback, useContext } from "react";
+import { FC, memo, useContext, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Stack, Wrap, WrapItem } from "@chakra-ui/layout";
+import { Flex, Heading, Stack, SimpleGrid, Box } from "@chakra-ui/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router";
 
-import { drinkData } from "./Top";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { LoginUserContext } from "../../providers/LoginUserProvider";
+import { useGetAllPosts } from "../../hooks/useGetAllPosts";
+import { PostParams } from "../../types/api/post";
 
 export const Index: FC = memo(() => {
+  const [posts, setPosts] = useState<PostParams[]>([]);
   const { isSignedIn } = useContext(LoginUserContext);
   const navigate = useNavigate();
+  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
   const page = [1, 2, 3, 4];
 
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
-    <Stack h="calc(100vh - 120px)" align="center" mt={16} overflowY="scroll">
+    <Stack align="center" mt={16} overflowY="scroll">
       <Flex position="relative" w="100%" justify="center" align="center" mt={8}>
         <Heading fontSize="2xl">みんなの投稿</Heading>
         {isSignedIn && (
@@ -33,18 +40,24 @@ export const Index: FC = memo(() => {
           </Button>
         )}
       </Flex>
-      <Wrap w="90%" justify="center" mt={4}>
-        {drinkData.map((data, index) => (
-          <WrapItem key={index}>
+      <SimpleGrid
+        mt={4}
+        columns={{ base: 1, md: 4 }}
+        gap={4}
+        minH={{ base: "none", md: "calc(100vh - 300px)" }}
+      >
+        {posts.map((data) => (
+          <Box key={data.id}>
             <DrinkCard
               image={data.image}
               username={data.username}
               name={data.name}
+              avatar={data.avatar}
             />
-          </WrapItem>
+          </Box>
         ))}
-      </Wrap>
-      <Flex mt={8} mb={4}>
+      </SimpleGrid>
+      <Flex mt={10} mb={4}>
         {page.map((num) => (
           <Button
             key={num}

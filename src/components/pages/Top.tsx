@@ -1,55 +1,34 @@
-import { FC, memo } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import {
   Box,
   Button,
   Flex,
   Heading,
   Image,
+  SimpleGrid,
   Text,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
 
 import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/PrimaryButton";
-
-export const drinkData = [
-  {
-    image: topImage,
-    username: "お酒太郎",
-    name: "ワイルドターキー",
-  },
-  {
-    image: topImage,
-    username: "二郎",
-    name: "ジャックダニエル",
-  },
-  {
-    image: topImage,
-    username: "三郎",
-    name: "メーカーズマーク",
-  },
-  {
-    image: topImage,
-    username: "四郎",
-    name: "オールドクロウ",
-  },
-  {
-    image: topImage,
-    username: "四郎",
-    name: "オールドクロウ",
-  },
-  {
-    image: topImage,
-    username: "四郎",
-    name: "オールドクロウ",
-  },
-];
+import { PostParams } from "../../types/api/post";
+import { useGetAllPosts } from "../../hooks/useGetAllPosts";
 
 export const Top: FC = memo(() => {
+  const [posts, setPosts] = useState<PostParams[]>([]);
+  const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
   const navigate = useNavigate();
+  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  useEffect(() => {
+    setSelectedPosts(posts.slice(0, 8));
+  }, [posts]);
 
   return (
     <Box w="100vw" overflow="scroll" pb={10}>
@@ -62,20 +41,25 @@ export const Top: FC = memo(() => {
           <Text>Booze Diaryはお酒好きのためのSNSです。</Text>
           <Text>あなたのお酒ライフがより良いものとなります。</Text>
         </Box>
-        <Heading mt={4} fontSize={{ base: "sm", md: "2xl" }}>
+        <Heading mt={10} fontSize={{ base: "sm", md: "xl" }}>
           最新の投稿
         </Heading>
-        <Wrap justify="center" w="90%" mt={{ base: "1", md: "2" }}>
-          {drinkData.map((data, index) => (
-            <WrapItem key={index}>
+        <SimpleGrid
+          mt={{ base: "1", md: "3" }}
+          columns={{ base: 1, md: 4 }}
+          gap={4}
+        >
+          {selectedPosts.map((data) => (
+            <Box key={data.id}>
               <DrinkCard
                 image={data.image}
                 username={data.username}
                 name={data.name}
+                avatar={data.avatar}
               />
-            </WrapItem>
+            </Box>
           ))}
-        </Wrap>
+        </SimpleGrid>
         <Button
           borderRadius="30px"
           w={{ base: "50%", md: "30%" }}
