@@ -12,11 +12,13 @@ import {
 import { useParams } from "react-router-dom";
 import { PostParams } from "../../types/api/post";
 import { useGetDetail } from "../../hooks/useGetDetail";
+import { User } from "../../types/api/userAuth";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
+  const [user, setUser] = useState<User>();
   const query = useParams();
-  const { getDetail } = useGetDetail({ setData: setData });
+  const { getDetail } = useGetDetail({ setData: setData, setUser: setUser });
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
   const StyledText = useCallback(({ ...props }: TextProps) => {
@@ -38,13 +40,13 @@ export const Detail: FC = memo(() => {
     >
       <Box>
         <Flex align="center" w={{ base: "300px", md: "600px" }}>
-          <Avatar />
+          <Avatar src={user?.image} />
           <Text
             ml={2}
             cursor="pointer"
             _hover={{ textDecoration: "underline", color: "blue.500" }}
           >
-            お酒太郎
+            {user?.name}
           </Text>
         </Flex>
         <Box mt={4} boxShadow="lg" borderRadius="10px">
