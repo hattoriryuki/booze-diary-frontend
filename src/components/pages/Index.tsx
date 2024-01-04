@@ -49,6 +49,7 @@ export const Index: FC = memo(() => {
         {posts.map((data) => (
           <Box key={data.id}>
             <DrinkCard
+              id={data.id}
               image={data.image}
               username={data.username}
               name={data.name}

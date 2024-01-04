@@ -52,6 +52,7 @@ export const Top: FC = memo(() => {
           {selectedPosts.map((data) => (
             <Box key={data.id}>
               <DrinkCard
+                id={data.id}
                 image={data.image}
                 username={data.username}
                 name={data.name}

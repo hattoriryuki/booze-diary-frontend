@@ -27,7 +27,7 @@ export const homeRoutes = [
     element: <PostCreation />,
   },
   {
-    path: "/post/:id",
+    path: "/posts/:id",
     element: <Detail />,
   },
 ];

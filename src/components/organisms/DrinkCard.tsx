@@ -1,7 +1,9 @@
 import { FC, memo } from "react";
 import { Avatar, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 type Props = {
+  id: number;
   image: string;
   username: string | undefined;
   name: string;
@@ -9,7 +11,7 @@ type Props = {
 };
 
 export const DrinkCard: FC<Props> = memo((props) => {
-  const { image, username, name, avatar } = props;
+  const { id, image, username, name, avatar } = props;
 
   return (
     <Box
@@ -17,21 +19,24 @@ export const DrinkCard: FC<Props> = memo((props) => {
       borderRadius="10px"
       cursor="pointer"
       transition="all .3s"
+      boxShadow="lg"
       _hover={{
         position: "relative",
         top: "-3px",
         boxShadow: "0 2px 3px rgba(0, 0, 0, 0.3)",
       }}
     >
-      <Image
-        src={image}
-        alt="Drink image"
-        w="300px"
-        h="200px"
-        borderRadius="10px"
-        aspectRatio="16 / 9"
-        objectFit="cover"
-      />
+      <Link to={`/posts/${id}`}>
+        <Image
+          src={image}
+          alt="Drink image"
+          w="300px"
+          h="200px"
+          borderRadius="10px"
+          aspectRatio="16 / 9"
+          objectFit="cover"
+        />
+      </Link>
       <Flex
         position="absolute"
         bottom={0}
