@@ -1,9 +1,22 @@
-import { FC, memo } from "react";
-import { Avatar, Box, Flex, Image, Stack, Text } from "@chakra-ui/react";
+import { FC, memo, useCallback } from "react";
+import {
+  Avatar,
+  Box,
+  Flex,
+  Image,
+  Stack,
+  Text,
+  TextProps,
+} from "@chakra-ui/react";
 
 import SampleImage from "../../assets/images/top.jpg";
 
 export const Detail: FC = memo(() => {
+  const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
+  const StyledText = useCallback(({ ...props }: TextProps) => {
+    return <Text mb={2} {...props} />;
+  }, []);
+
   return (
     <Box
       as={Stack}
@@ -16,9 +29,14 @@ export const Detail: FC = memo(() => {
       <Box>
         <Flex align="center" w={{ base: "300px", md: "600px" }}>
           <Avatar />
-          <Text ml={2}>お酒太郎</Text>
+          <Text
+            ml={2}
+            _hover={{ textDecoration: "underline", color: "blue.500" }}
+          >
+            お酒太郎
+          </Text>
         </Flex>
-        <Box mt={4}>
+        <Box mt={4} boxShadow="xl" borderRadius="10px">
           <Image
             src={SampleImage}
             alt="Drink image"
@@ -33,16 +51,17 @@ export const Detail: FC = memo(() => {
       <Stack w={{ base: "300px", md: "600px" }} fontSize="large">
         <Flex mt={4} justify="space-around">
           <Box>
-            <Text mb={2}>タイトル：</Text>
-            <Text mb={2}>量：</Text>
-            <Text mb={2}>価格：</Text>
-            <Text mb={2}>おすすめ度：</Text>
+            {labels.map((label) => (
+              <StyledText key={label} mb={2}>
+                {label}
+              </StyledText>
+            ))}
           </Box>
           <Box ml={20}>
-            <Text mb={2}>一番搾り</Text>
-            <Text mb={2}>3000ml</Text>
-            <Text mb={2}>300円</Text>
-            <Text mb={2}>★★★★★</Text>
+            <StyledText mb={2}>一番搾り</StyledText>
+            <StyledText mb={2}>3000ml</StyledText>
+            <StyledText mb={2}>300円</StyledText>
+            <StyledText mb={2}>★★★★★</StyledText>
           </Box>
         </Flex>
       </Stack>
