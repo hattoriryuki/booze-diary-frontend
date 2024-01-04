@@ -1,4 +1,4 @@
-import { FC, memo, useCallback } from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -9,13 +9,34 @@ import {
   TextProps,
 } from "@chakra-ui/react";
 
-import SampleImage from "../../assets/images/top.jpg";
+import { Params, useParams } from "react-router-dom";
+import { getDetailReq } from "../../api/postRequest";
+import { PostParams } from "../../types/api/post";
 
 export const Detail: FC = memo(() => {
+  const [data, setData] = useState<PostParams>();
+  const query = useParams();
+
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
   const StyledText = useCallback(({ ...props }: TextProps) => {
     return <Text mb={2} {...props} />;
   }, []);
+
+  useEffect(() => {
+    handleGetDetail(query);
+  }, [query]);
+
+  const handleGetDetail = useCallback(
+    async (query: Readonly<Params<string>>) => {
+      try {
+        const res = await getDetailReq(query.id);
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    []
+  );
 
   return (
     <Box
@@ -31,6 +52,7 @@ export const Detail: FC = memo(() => {
           <Avatar />
           <Text
             ml={2}
+            cursor="pointer"
             _hover={{ textDecoration: "underline", color: "blue.500" }}
           >
             お酒太郎
@@ -38,7 +60,7 @@ export const Detail: FC = memo(() => {
         </Flex>
         <Box mt={4} boxShadow="xl" borderRadius="10px">
           <Image
-            src={SampleImage}
+            src={data?.image}
             alt="Drink image"
             w={{ base: "300px", md: "600px" }}
             h={{ base: "200px", md: "400px" }}
@@ -57,12 +79,18 @@ export const Detail: FC = memo(() => {
               </StyledText>
             ))}
           </Box>
-          <Box ml={20}>
-            <StyledText mb={2}>一番搾り</StyledText>
-            <StyledText mb={2}>3000ml</StyledText>
-            <StyledText mb={2}>300円</StyledText>
-            <StyledText mb={2}>★★★★★</StyledText>
-          </Box>
+          {data && (
+            <Box ml={20}>
+              <StyledText mb={2}>{data.name}</StyledText>
+              <StyledText mb={2}>
+                {data.quantity || "登録されていません"}
+              </StyledText>
+              <StyledText mb={2}>
+                {data.price || "登録されていません"}
+              </StyledText>
+              <StyledText mb={2}>★★★★★</StyledText>
+            </Box>
+          )}
         </Flex>
       </Stack>
     </Box>
