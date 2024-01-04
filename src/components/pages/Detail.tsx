@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   Avatar,
   Box,
@@ -17,6 +17,7 @@ import { User } from "../../types/api/userAuth";
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
   const [user, setUser] = useState<User>();
+  const recommend = useRef("");
   const query = useParams();
   const { getDetail } = useGetDetail({ setData: setData, setUser: setUser });
 
@@ -28,6 +29,16 @@ export const Detail: FC = memo(() => {
   useEffect(() => {
     getDetail(query);
   }, [query]);
+
+  useEffect(() => {
+    if (!data) return;
+    for (let i = 0; i < data.recommend; i++) {
+      recommend.current += "★";
+    }
+    return () => {
+      recommend.current = "";
+    };
+  }, [data]);
 
   return (
     <Box
@@ -74,7 +85,7 @@ export const Detail: FC = memo(() => {
             <StyledText>{data?.name}</StyledText>
             <StyledText>{data?.quantity || "登録されていません"}</StyledText>
             <StyledText>{data?.price || "登録されていません"}</StyledText>
-            <StyledText>★★★★★</StyledText>
+            <StyledText>{recommend.current}</StyledText>
           </Box>
         </Flex>
       </Stack>
