@@ -9,13 +9,14 @@ import {
   TextProps,
 } from "@chakra-ui/react";
 
-import { Params, useParams } from "react-router-dom";
-import { getDetailReq } from "../../api/postRequest";
+import { useParams } from "react-router-dom";
 import { PostParams } from "../../types/api/post";
+import { useGetDetail } from "../../hooks/useGetDetail";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
   const query = useParams();
+  const { getDetail } = useGetDetail({ setData: setData });
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
   const StyledText = useCallback(({ ...props }: TextProps) => {
@@ -23,20 +24,8 @@ export const Detail: FC = memo(() => {
   }, []);
 
   useEffect(() => {
-    handleGetDetail(query);
+    getDetail(query);
   }, [query]);
-
-  const handleGetDetail = useCallback(
-    async (query: Readonly<Params<string>>) => {
-      try {
-        const res = await getDetailReq(query.id);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-    []
-  );
 
   return (
     <Box
@@ -58,7 +47,7 @@ export const Detail: FC = memo(() => {
             お酒太郎
           </Text>
         </Flex>
-        <Box mt={4} boxShadow="xl" borderRadius="10px">
+        <Box mt={4} boxShadow="lg" borderRadius="10px">
           <Image
             src={data?.image}
             alt="Drink image"
@@ -79,18 +68,12 @@ export const Detail: FC = memo(() => {
               </StyledText>
             ))}
           </Box>
-          {data && (
-            <Box ml={20}>
-              <StyledText mb={2}>{data.name}</StyledText>
-              <StyledText mb={2}>
-                {data.quantity || "登録されていません"}
-              </StyledText>
-              <StyledText mb={2}>
-                {data.price || "登録されていません"}
-              </StyledText>
-              <StyledText mb={2}>★★★★★</StyledText>
-            </Box>
-          )}
+          <Box ml={20}>
+            <StyledText>{data?.name}</StyledText>
+            <StyledText>{data?.quantity || "登録されていません"}</StyledText>
+            <StyledText>{data?.price || "登録されていません"}</StyledText>
+            <StyledText>★★★★★</StyledText>
+          </Box>
         </Flex>
       </Stack>
     </Box>
