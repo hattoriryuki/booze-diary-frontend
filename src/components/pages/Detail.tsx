@@ -35,6 +35,11 @@ export const Detail: FC = memo(() => {
     for (let i = 0; i < data.recommend; i++) {
       recommend.current += "★";
     }
+    if (data.recommend < 5) {
+      for (let i = 0; i < 5 - data.recommend; i++) {
+        recommend.current += "☆";
+      }
+    }
     return () => {
       recommend.current = "";
     };
