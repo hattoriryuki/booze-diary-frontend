@@ -13,13 +13,15 @@ import { useParams } from "react-router-dom";
 import { PostParams } from "../../types/api/post";
 import { useGetDetail } from "../../hooks/useGetDetail";
 import { User } from "../../types/api/userAuth";
+import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
   const [user, setUser] = useState<User>();
   const recommend = useRef("");
   const query = useParams();
-  const { getDetail } = useGetDetail({ setData: setData, setUser: setUser });
+  const { getDetail } = useGetDetail({ setData, setUser });
+  const { displayRecommend } = useDisplayRecommend();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
   const StyledText = useCallback(({ ...props }: TextProps) => {
@@ -31,15 +33,7 @@ export const Detail: FC = memo(() => {
   }, [query]);
 
   useEffect(() => {
-    if (!data) return;
-    for (let i = 0; i < data.recommend; i++) {
-      recommend.current += "★";
-    }
-    if (data.recommend < 5) {
-      for (let i = 0; i < 5 - data.recommend; i++) {
-        recommend.current += "☆";
-      }
-    }
+    displayRecommend({ data, recommend });
     return () => {
       recommend.current = "";
     };
