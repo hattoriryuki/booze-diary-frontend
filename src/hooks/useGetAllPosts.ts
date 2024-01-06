@@ -13,11 +13,11 @@ import { User } from "../types/api/userAuth";
 import { useGetAllUsers } from "./useGetAllUsers";
 
 type Props = {
-  setTargetPosts: Dispatch<SetStateAction<PostParams[]>>;
+  setPosts: Dispatch<SetStateAction<PostParams[]>>;
 };
 
 export const useGetAllPosts = (props: Props) => {
-  const { setTargetPosts } = props;
+  const { setPosts } = props;
   const userRef = useRef<User[]>([]);
   const { showToastMsg } = useToastMsg();
   const { getUsers } = useGetAllUsers({ userRef: userRef });
@@ -48,7 +48,7 @@ export const useGetAllPosts = (props: Props) => {
         }
         return data;
       });
-      setTargetPosts(customPosts);
+      setPosts(customPosts);
     } catch (e) {
       showToastMsg({ status: "error", title: "投稿を取得できませんでした" });
     }

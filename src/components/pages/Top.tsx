@@ -20,7 +20,7 @@ export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
+  const { getPosts } = useGetAllPosts({ setPosts });
 
   useEffect(() => {
     getPosts();
