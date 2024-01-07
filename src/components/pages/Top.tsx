@@ -20,7 +20,7 @@ export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
+  const { getPosts } = useGetAllPosts({ setPosts });
 
   useEffect(() => {
     getPosts();
@@ -52,6 +52,7 @@ export const Top: FC = memo(() => {
           {selectedPosts.map((data) => (
             <Box key={data.id}>
               <DrinkCard
+                id={data.id}
                 image={data.image}
                 username={data.username}
                 name={data.name}
@@ -64,7 +65,7 @@ export const Top: FC = memo(() => {
           borderRadius="30px"
           w={{ base: "50%", md: "30%" }}
           mt={{ base: "2", md: "4" }}
-          onClick={() => navigate("/index")}
+          onClick={() => navigate("/posts")}
         >
           全ての投稿
         </Button>

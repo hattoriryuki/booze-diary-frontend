@@ -7,7 +7,7 @@ export const getListReq = () => {
   return client.get("/posts", { headers: headers });
 };
 
-export const getDetailReq = (id: number) => {
+export const getDetailReq = (id: string | undefined) => {
   return client.get(`/posts/${id}`);
 };
 

@@ -14,7 +14,7 @@ export const Index: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const { isSignedIn } = useContext(LoginUserContext);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setTargetPosts: setPosts });
+  const { getPosts } = useGetAllPosts({ setPosts });
   const page = [1, 2, 3, 4];
 
   useEffect(() => {
@@ -49,6 +49,7 @@ export const Index: FC = memo(() => {
         {posts.map((data) => (
           <Box key={data.id}>
             <DrinkCard
+              id={data.id}
               image={data.image}
               username={data.username}
               name={data.name}
