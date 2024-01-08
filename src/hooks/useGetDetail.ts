@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { Params } from "react-router-dom";
 import axios from "axios";
 
@@ -13,14 +13,18 @@ type Props = {
 
 export const useGetDetail = (props: Props) => {
   const { setData, setUser } = props;
+  const [loading, setLoading] = useState(false);
 
   const getDetail = useCallback(async (query: Readonly<Params<string>>) => {
+    setLoading(true);
     try {
       const res = await getDetailReq(query.id);
       setData(res.data);
       selectUser(res.data.userId);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -32,5 +36,5 @@ export const useGetDetail = (props: Props) => {
         console.log("User acquisition error");
       });
   }, []);
-  return { getDetail };
+  return { getDetail, loading };
 };
