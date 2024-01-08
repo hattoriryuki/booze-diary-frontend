@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useState,
 } from "react";
 
 import { PostParams } from "../types/api/post";
@@ -18,6 +19,7 @@ type Props = {
 
 export const useGetAllPosts = (props: Props) => {
   const { setPosts } = props;
+  const [loading, setLoading] = useState(false);
   const userRef = useRef<User[]>([]);
   const { showToastMsg } = useToastMsg();
   const { getUsers } = useGetAllUsers({ userRef: userRef });
@@ -25,6 +27,7 @@ export const useGetAllPosts = (props: Props) => {
   useEffect(() => {}, []);
 
   const getPosts = useCallback(async () => {
+    setLoading(true);
     getUsers();
     try {
       const res = await getListReq();
@@ -51,8 +54,10 @@ export const useGetAllPosts = (props: Props) => {
       setPosts(customPosts);
     } catch (e) {
       showToastMsg({ status: "error", title: "投稿を取得できませんでした" });
+    } finally {
+      setLoading(false);
     }
   }, []);
 
-  return { getPosts };
+  return { getPosts, loading };
 };

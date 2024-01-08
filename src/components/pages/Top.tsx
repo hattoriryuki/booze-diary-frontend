@@ -2,10 +2,12 @@ import { FC, memo, useEffect, useState } from "react";
 import {
   Box,
   Button,
+  Center,
   Flex,
   Heading,
   Image,
   SimpleGrid,
+  Spinner,
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
@@ -20,7 +22,7 @@ export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setPosts });
+  const { getPosts, loading } = useGetAllPosts({ setPosts });
 
   useEffect(() => {
     getPosts();
@@ -44,23 +46,29 @@ export const Top: FC = memo(() => {
         <Heading mt={10} fontSize={{ base: "sm", md: "xl" }}>
           最新の投稿
         </Heading>
-        <SimpleGrid
-          mt={{ base: "1", md: "3" }}
-          columns={{ base: 1, md: 4 }}
-          gap={4}
-        >
-          {selectedPosts.map((data) => (
-            <Box key={data.id}>
-              <DrinkCard
-                id={data.id}
-                image={data.image}
-                username={data.username}
-                name={data.name}
-                avatar={data.avatar}
-              />
-            </Box>
-          ))}
-        </SimpleGrid>
+        {loading ? (
+          <Center h="400px">
+            <Spinner />
+          </Center>
+        ) : (
+          <SimpleGrid
+            mt={{ base: "1", md: "3" }}
+            columns={{ base: 1, md: 4 }}
+            gap={4}
+          >
+            {selectedPosts.map((data) => (
+              <Box key={data.id}>
+                <DrinkCard
+                  id={data.id}
+                  image={data.image}
+                  username={data.username}
+                  name={data.name}
+                  avatar={data.avatar}
+                />
+              </Box>
+            ))}
+          </SimpleGrid>
+        )}
         <Button
           borderRadius="30px"
           w={{ base: "50%", md: "30%" }}
