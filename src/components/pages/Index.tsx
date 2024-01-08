@@ -1,6 +1,14 @@
 import { FC, memo, useContext, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Stack, SimpleGrid, Box } from "@chakra-ui/layout";
+import { Spinner } from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  Stack,
+  SimpleGrid,
+  Box,
+  Center,
+} from "@chakra-ui/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router";
@@ -14,7 +22,7 @@ export const Index: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const { isSignedIn } = useContext(LoginUserContext);
   const navigate = useNavigate();
-  const { getPosts } = useGetAllPosts({ setPosts });
+  const { getPosts, loading } = useGetAllPosts({ setPosts });
   const page = [1, 2, 3, 4];
 
   useEffect(() => {
@@ -40,24 +48,30 @@ export const Index: FC = memo(() => {
           </Button>
         )}
       </Flex>
-      <SimpleGrid
-        mt={4}
-        columns={{ base: 1, md: 4 }}
-        gap={4}
-        minH={{ base: "none", md: "calc(100vh - 300px)" }}
-      >
-        {posts.map((data) => (
-          <Box key={data.id}>
-            <DrinkCard
-              id={data.id}
-              image={data.image}
-              username={data.username}
-              name={data.name}
-              avatar={data.avatar}
-            />
-          </Box>
-        ))}
-      </SimpleGrid>
+      {loading ? (
+        <Center h={{ base: "400px", md: "calc(100vh - 300px)" }}>
+          <Spinner />
+        </Center>
+      ) : (
+        <SimpleGrid
+          mt={4}
+          columns={{ base: 1, md: 4 }}
+          gap={4}
+          minH={{ base: "none", md: "calc(100vh - 300px)" }}
+        >
+          {posts.map((data) => (
+            <Box key={data.id}>
+              <DrinkCard
+                id={data.id}
+                image={data.image}
+                username={data.username}
+                name={data.name}
+                avatar={data.avatar}
+              />
+            </Box>
+          ))}
+        </SimpleGrid>
+      )}
       <Flex mt={10} mb={4}>
         {page.map((num) => (
           <Button
