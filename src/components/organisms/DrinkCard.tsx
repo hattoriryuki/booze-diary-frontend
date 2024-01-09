@@ -8,10 +8,11 @@ type Props = {
   username: string | undefined;
   name: string;
   avatar?: string;
+  userId: number;
 };
 
 export const DrinkCard: FC<Props> = memo((props) => {
-  const { id, image, username, name, avatar } = props;
+  const { id, image, username, name, avatar, userId } = props;
 
   return (
     <Box
@@ -49,14 +50,16 @@ export const DrinkCard: FC<Props> = memo((props) => {
       >
         <Flex position="absolute" top="-16px" left={2} alignItems="center">
           <Avatar size="sm" src={avatar} />
-          <Text
-            ml={2}
-            color="white"
-            fontSize="sm"
-            _hover={{ textDecoration: "underline", color: "blue.500" }}
-          >
-            {username}
-          </Text>
+          <Link to={`/users/${userId}`}>
+            <Text
+              ml={2}
+              color="white"
+              fontSize="sm"
+              _hover={{ textDecoration: "underline", color: "blue.500" }}
+            >
+              {username}
+            </Text>
+          </Link>
         </Flex>
         <Heading fontSize="medium" color="white">
           {name}

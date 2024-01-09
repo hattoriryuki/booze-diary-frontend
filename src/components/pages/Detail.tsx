@@ -83,9 +83,7 @@ export const Detail: FC = memo(() => {
             <Flex mt={4} justify="space-around">
               <Box>
                 {labels.map((label) => (
-                  <StyledText key={label} mb={2}>
-                    {label}
-                  </StyledText>
+                  <StyledText key={label}>{label}</StyledText>
                 ))}
               </Box>
               <Box ml={20}>

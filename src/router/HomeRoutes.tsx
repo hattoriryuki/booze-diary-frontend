@@ -2,6 +2,7 @@ import { Detail } from "../components/pages/Detail";
 import { Index } from "../components/pages/Index";
 import { Login } from "../components/pages/Login";
 import { PostCreation } from "../components/pages/PostCreation";
+import { Profile } from "../components/pages/Profile";
 import { SignUp } from "../components/pages/SignUp";
 import { Top } from "../components/pages/Top";
 
@@ -29,5 +30,9 @@ export const homeRoutes = [
   {
     path: "/posts/:id",
     element: <Detail />,
+  },
+  {
+    path: "/users/:id",
+    element: <Profile />,
   },
 ];

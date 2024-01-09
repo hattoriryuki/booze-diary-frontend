@@ -67,6 +67,7 @@ export const Index: FC = memo(() => {
                 username={data.username}
                 name={data.name}
                 avatar={data.avatar}
+                userId={data.userId}
               />
             </Box>
           ))}
