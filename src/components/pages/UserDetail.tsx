@@ -44,7 +44,14 @@ export const UserDetail: FC = memo(() => {
       >
         {user?.posts.map((data) => (
           <Box key={data.id}>
-            <Image src={data.image} w="300px" h="200px" />
+            <Image
+              src={data.image}
+              w="300px"
+              h="200px"
+              borderRadius="10px"
+              aspectRatio="16 / 9"
+              objectFit="cover"
+            />
             <Text align="center">{data.name}</Text>
           </Box>
         ))}
