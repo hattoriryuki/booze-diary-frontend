@@ -2,7 +2,7 @@ import { Detail } from "../components/pages/Detail";
 import { Index } from "../components/pages/Index";
 import { Login } from "../components/pages/Login";
 import { PostCreation } from "../components/pages/PostCreation";
-import { Profile } from "../components/pages/Profile";
+import { UserDetail } from "../components/pages/UserDetail";
 import { SignUp } from "../components/pages/SignUp";
 import { Top } from "../components/pages/Top";
 
@@ -33,6 +33,6 @@ export const homeRoutes = [
   },
   {
     path: "/users/:id",
-    element: <Profile />,
+    element: <UserDetail />,
   },
 ];

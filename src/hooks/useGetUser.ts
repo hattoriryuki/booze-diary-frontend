@@ -2,9 +2,9 @@ import { Dispatch, SetStateAction, useCallback } from "react";
 import axios from "axios";
 import { Params } from "react-router-dom";
 
-import { UserDetail } from "../types/api/user";
+import { UserDetailParams } from "../types/api/user";
 
-type Props = Dispatch<SetStateAction<UserDetail | undefined>>;
+type Props = Dispatch<SetStateAction<UserDetailParams | undefined>>;
 
 export const useGetUser = (setUser: Props) => {
   const getUser = useCallback((query: Readonly<Params<string>>) => {

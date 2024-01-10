@@ -4,11 +4,11 @@ import { Params } from "react-router-dom";
 import { getDetailReq } from "../api/postRequest";
 import { PostParams } from "../types/api/post";
 import { useGetUser } from "./useGetUser";
-import { UserDetail } from "../types/api/user";
+import { UserDetailParams } from "../types/api/user";
 
 type Props = {
   setData: Dispatch<SetStateAction<PostParams | undefined>>;
-  setUser: Dispatch<SetStateAction<UserDetail | undefined>>;
+  setUser: Dispatch<SetStateAction<UserDetailParams | undefined>>;
 };
 
 export const useGetDetail = (props: Props) => {
