@@ -1,6 +1,8 @@
 import { FC, memo } from "react";
-import { Avatar, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
+import { PrimaryImage } from "../atoms/PrimaryImage";
 
 type Props = {
   id: number;
@@ -28,15 +30,7 @@ export const DrinkCard: FC<Props> = memo((props) => {
       }}
     >
       <Link to={`/posts/${id}`}>
-        <Image
-          src={image}
-          alt="Drink image"
-          w="300px"
-          h="200px"
-          borderRadius="10px"
-          aspectRatio="16 / 9"
-          objectFit="cover"
-        />
+        <PrimaryImage argument={{ image: image, alt: "Drink image" }} />
       </Link>
       <Flex
         position="absolute"

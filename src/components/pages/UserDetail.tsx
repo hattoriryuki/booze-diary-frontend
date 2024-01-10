@@ -1,17 +1,10 @@
 import { FC, memo, useEffect, useState } from "react";
-import {
-  Avatar,
-  Box,
-  Flex,
-  Heading,
-  Image,
-  SimpleGrid,
-  Text,
-} from "@chakra-ui/react";
+import { Avatar, Box, Flex, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
 import { useGetUser } from "../../hooks/useGetUser";
 import { UserDetailParams } from "../../types/api/user";
+import { PrimaryImage } from "../atoms/PrimaryImage";
 
 export const UserDetail: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
@@ -44,13 +37,8 @@ export const UserDetail: FC = memo(() => {
       >
         {user?.posts.map((data) => (
           <Box key={data.id}>
-            <Image
-              src={data.image}
-              w="300px"
-              h="200px"
-              borderRadius="10px"
-              aspectRatio="16 / 9"
-              objectFit="cover"
+            <PrimaryImage
+              argument={{ image: data.image, alt: "Drink image" }}
             />
             <Text align="center">{data.name}</Text>
           </Box>

@@ -4,7 +4,6 @@ import {
   Box,
   Center,
   Flex,
-  Image,
   Spinner,
   Stack,
   Text,
@@ -16,6 +15,7 @@ import { PostParams } from "../../types/api/post";
 import { useGetDetail } from "../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
 import { UserDetailParams } from "../../types/api/user";
+import { PrimaryImage } from "../atoms/PrimaryImage";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
@@ -68,14 +68,10 @@ export const Detail: FC = memo(() => {
               </Text>
             </Flex>
             <Box mt={4} boxShadow="lg" borderRadius="10px">
-              <Image
-                src={data?.image}
-                alt="Drink image"
+              <PrimaryImage
+                argument={{ image: data?.image, alt: "Drink image" }}
                 w={{ base: "300px", md: "600px" }}
                 h={{ base: "200px", md: "400px" }}
-                borderRadius="10px"
-                aspectRatio="16 / 9"
-                objectFit="cover"
               />
             </Box>
           </Box>
