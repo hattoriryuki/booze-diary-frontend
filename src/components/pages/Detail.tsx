@@ -14,12 +14,12 @@ import { useParams } from "react-router-dom";
 
 import { PostParams } from "../../types/api/post";
 import { useGetDetail } from "../../hooks/useGetDetail";
-import { User } from "../../types/api/userAuth";
 import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
+import { UserDetail } from "../../types/api/user";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserDetail>();
   const recommend = useRef("");
   const query = useParams();
   const { getDetail, loading } = useGetDetail({ setData, setUser });

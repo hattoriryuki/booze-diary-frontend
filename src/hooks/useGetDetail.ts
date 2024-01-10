@@ -3,12 +3,12 @@ import { Params } from "react-router-dom";
 
 import { getDetailReq } from "../api/postRequest";
 import { PostParams } from "../types/api/post";
-import { User } from "../types/api/userAuth";
 import { useGetUser } from "./useGetUser";
+import { UserDetail } from "../types/api/user";
 
 type Props = {
   setData: Dispatch<SetStateAction<PostParams | undefined>>;
-  setUser: Dispatch<SetStateAction<User | undefined>>;
+  setUser: Dispatch<SetStateAction<UserDetail | undefined>>;
 };
 
 export const useGetDetail = (props: Props) => {
@@ -21,7 +21,7 @@ export const useGetDetail = (props: Props) => {
     try {
       const res = await getDetailReq(query.id);
       setData(res.data);
-      getUser(res.data.userId);
+      getUser({ id: res.data.userId });
     } catch (err) {
       console.log(err);
     } finally {
