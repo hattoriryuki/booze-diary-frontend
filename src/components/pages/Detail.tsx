@@ -14,15 +14,13 @@ import { useParams } from "react-router-dom";
 import { PostParams } from "../../types/api/post";
 import { useGetDetail } from "../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
-import { UserDetailParams } from "../../types/api/user";
 import { PrimaryImage } from "../atoms/PrimaryImage";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
-  const [user, setUser] = useState<UserDetailParams>();
   const recommend = useRef("");
   const query = useParams();
-  const { getDetail, loading } = useGetDetail({ setData, setUser });
+  const { getDetail, loading } = useGetDetail({ setData });
   const { displayRecommend } = useDisplayRecommend();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
@@ -58,13 +56,13 @@ export const Detail: FC = memo(() => {
         <>
           <Box>
             <Flex align="center" w={{ base: "300px", md: "600px" }}>
-              <Avatar src={user?.image} />
+              <Avatar src={data?.user?.image} />
               <Text
                 ml={2}
                 cursor="pointer"
                 _hover={{ textDecoration: "underline", color: "blue.500" }}
               >
-                {user?.name}
+                {data?.user?.name}
               </Text>
             </Flex>
             <Box mt={4} boxShadow="lg" borderRadius="10px">

@@ -1,3 +1,5 @@
+import { UserDetailParams } from "./user";
+
 export type PostParams = {
   id: number;
   name: string;
@@ -8,5 +10,6 @@ export type PostParams = {
   userId: number;
   username?: string;
   avatar?: string;
+  user?: UserDetailParams;
   updatedAt: string;
 };
