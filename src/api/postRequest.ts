@@ -12,7 +12,7 @@ export const getDetailReq = (id: string | undefined) => {
 };
 
 export const createPostReq = (
-  params: Omit<PostParams, "id" | "userId" | "updatedAt">
+  params: Omit<PostParams, "id" | "userId" | "created_at">
 ) => {
   return client.post("/posts", params, {
     headers: {

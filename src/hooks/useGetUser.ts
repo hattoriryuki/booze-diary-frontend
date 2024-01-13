@@ -11,11 +11,27 @@ export const useGetUser = (setUser: Props) => {
     if (setUser) {
       axios
         .get(`${process.env.REACT_APP_USER_CLIENT}/${query.id}`)
-        .then((res) => setUser(res.data))
+        .then((res) => {
+          sortPosts(res.data);
+          setUser(res.data);
+        })
         .catch(() => {
           console.log("User acquisition error");
         });
     }
+  }, []);
+
+  const sortPosts = useCallback((data: UserDetailParams | undefined) => {
+    if (!data) return;
+    data.posts.sort((x, y) => {
+      if (x.created_at < y.created_at) {
+        return 1;
+      }
+      if (x.created_at > y.created_at) {
+        return -1;
+      }
+      return 0;
+    });
   }, []);
   return { getUser };
 };

@@ -11,5 +11,5 @@ export type PostParams = {
   username?: string;
   avatar?: string;
   user?: UserDetailParams;
-  updatedAt: string;
+  created_at: string;
 };
