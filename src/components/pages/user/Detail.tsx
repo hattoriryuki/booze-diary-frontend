@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { useGetUser } from "../../../hooks/useGetUser";
 import { UserDetailParams } from "../../../types/api/user";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
+import { Link } from "react-router-dom";
+import { StandOutBox } from "../../atoms/StandOutBox";
 
 export const Detail: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
@@ -29,19 +31,16 @@ export const Detail: FC = memo(() => {
       <Heading mt={8} fontSize={{ base: "sm", md: "xl" }}>
         過去の投稿
       </Heading>
-      <SimpleGrid
-        mt={2}
-        columns={{ base: 1, md: 4 }}
-        gap={4}
-        minH={{ base: "none", md: "calc(100vh - 300px)" }}
-      >
+      <SimpleGrid mt={2} columns={{ base: 1, md: 4 }} gap={4}>
         {user?.posts.map((data) => (
-          <Box key={data.id}>
-            <PrimaryImage
-              argument={{ image: data.image, alt: "Drink image" }}
-            />
-            <Text align="center">{data.name}</Text>
-          </Box>
+          <Link to={`/posts/${data.id}`}>
+            <StandOutBox key={data.id}>
+              <PrimaryImage
+                argument={{ image: data.image, alt: "Drink image" }}
+              />
+              <Text align="center">{data.name}</Text>
+            </StandOutBox>
+          </Link>
         ))}
       </SimpleGrid>
     </Flex>

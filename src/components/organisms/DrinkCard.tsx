@@ -1,8 +1,9 @@
 import { FC, memo } from "react";
-import { Avatar, Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 import { PrimaryImage } from "../atoms/PrimaryImage";
+import { StandOutBox } from "../atoms/StandOutBox";
 
 type Props = {
   id: number;
@@ -17,18 +18,7 @@ export const DrinkCard: FC<Props> = memo((props) => {
   const { id, image, username, name, avatar, userId } = props;
 
   return (
-    <Box
-      position="relative"
-      borderRadius="10px"
-      cursor="pointer"
-      transition="all .3s"
-      boxShadow="lg"
-      _hover={{
-        position: "relative",
-        top: "-3px",
-        boxShadow: "0 2px 3px rgba(0, 0, 0, 0.3)",
-      }}
-    >
+    <StandOutBox>
       <Link to={`/posts/${id}`}>
         <PrimaryImage argument={{ image: image, alt: "Drink image" }} />
       </Link>
@@ -59,6 +49,6 @@ export const DrinkCard: FC<Props> = memo((props) => {
           {name}
         </Heading>
       </Flex>
-    </Box>
+    </StandOutBox>
   );
 });
