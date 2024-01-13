@@ -11,10 +11,10 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-import { PostParams } from "../../types/api/post";
-import { useGetDetail } from "../../hooks/useGetDetail";
-import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
-import { PrimaryImage } from "../atoms/PrimaryImage";
+import { PostParams } from "../../../types/api/post";
+import { useGetDetail } from "../../../hooks/useGetDetail";
+import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
+import { PrimaryImage } from "../../atoms/PrimaryImage";
 import { Link } from "react-router-dom";
 
 export const Detail: FC = memo(() => {

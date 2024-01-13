@@ -3,15 +3,15 @@ import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { useNavigate } from "react-router";
 
-import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
-import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
-import { PrimaryButton } from "../atoms/PrimaryButton";
-import { ImageBox } from "../atoms/ImageBox";
-import { StarButtons } from "../molecules/StarButtons";
-import { LoginUserContext } from "../../providers/LoginUserProvider";
-import { useCreatePost } from "../../hooks/useCreatePost";
+import { PrimaryInputArea } from "../../molecules/PrimaryInputArea";
+import { UploadPhotoButton } from "../../molecules/UploadPhotoButton";
+import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { ImageBox } from "../../atoms/ImageBox";
+import { StarButtons } from "../../molecules/StarButtons";
+import { LoginUserContext } from "../../../providers/LoginUserProvider";
+import { useCreatePost } from "../../../hooks/useCreatePost";
 
-export const PostCreation: FC = memo(() => {
+export const Creation: FC = memo(() => {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");

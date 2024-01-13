@@ -2,11 +2,11 @@ import { FC, memo, useEffect, useState } from "react";
 import { Avatar, Box, Flex, Heading, SimpleGrid, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-import { useGetUser } from "../../hooks/useGetUser";
-import { UserDetailParams } from "../../types/api/user";
-import { PrimaryImage } from "../atoms/PrimaryImage";
+import { useGetUser } from "../../../hooks/useGetUser";
+import { UserDetailParams } from "../../../types/api/user";
+import { PrimaryImage } from "../../atoms/PrimaryImage";
 
-export const UserDetail: FC = memo(() => {
+export const Detail: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
   const { getUser } = useGetUser(setUser);
   const query = useParams();

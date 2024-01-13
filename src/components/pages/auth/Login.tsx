@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, memo, useCallback, useState } from "react";
 import { Box, Flex, Heading, Link } from "@chakra-ui/react";
 
-import { PrimaryButton } from "../atoms/PrimaryButton";
-import { PasswordInput } from "../molecules/PasswordInput";
-import { useSignIn } from "../../hooks/useSignIn";
-import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
+import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { PasswordInput } from "../../molecules/PasswordInput";
+import { useSignIn } from "../../../hooks/useSignIn";
+import { PrimaryInputArea } from "../../molecules/PrimaryInputArea";
 
 export const Login: FC = memo(() => {
   const [email, setEmail] = useState("");
