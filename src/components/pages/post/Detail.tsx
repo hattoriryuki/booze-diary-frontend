@@ -4,7 +4,6 @@ import {
   Box,
   Center,
   Flex,
-  Image,
   Spinner,
   Stack,
   Text,
@@ -12,17 +11,17 @@ import {
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
-import { PostParams } from "../../types/api/post";
-import { useGetDetail } from "../../hooks/useGetDetail";
-import { User } from "../../types/api/userAuth";
-import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
+import { PostParams } from "../../../types/api/post";
+import { useGetDetail } from "../../../hooks/useGetDetail";
+import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
+import { PrimaryImage } from "../../atoms/PrimaryImage";
+import { Link } from "react-router-dom";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
-  const [user, setUser] = useState<User>();
   const recommend = useRef("");
   const query = useParams();
-  const { getDetail, loading } = useGetDetail({ setData, setUser });
+  const { getDetail, loading } = useGetDetail({ setData });
   const { displayRecommend } = useDisplayRecommend();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
@@ -58,24 +57,22 @@ export const Detail: FC = memo(() => {
         <>
           <Box>
             <Flex align="center" w={{ base: "300px", md: "600px" }}>
-              <Avatar src={user?.image} />
-              <Text
-                ml={2}
-                cursor="pointer"
-                _hover={{ textDecoration: "underline", color: "blue.500" }}
-              >
-                {user?.name}
-              </Text>
+              <Avatar src={data?.user?.image} />
+              <Link to={`/users/${data?.userId}`}>
+                <Text
+                  ml={2}
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline", color: "blue.500" }}
+                >
+                  {data?.user?.name}
+                </Text>
+              </Link>
             </Flex>
             <Box mt={4} boxShadow="lg" borderRadius="10px">
-              <Image
-                src={data?.image}
-                alt="Drink image"
+              <PrimaryImage
+                argument={{ image: data?.image, alt: "Drink image" }}
                 w={{ base: "300px", md: "600px" }}
                 h={{ base: "200px", md: "400px" }}
-                borderRadius="10px"
-                aspectRatio="16 / 9"
-                objectFit="cover"
               />
             </Box>
           </Box>
@@ -83,9 +80,7 @@ export const Detail: FC = memo(() => {
             <Flex mt={4} justify="space-around">
               <Box>
                 {labels.map((label) => (
-                  <StyledText key={label} mb={2}>
-                    {label}
-                  </StyledText>
+                  <StyledText key={label}>{label}</StyledText>
                 ))}
               </Box>
               <Box ml={20}>

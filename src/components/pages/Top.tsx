@@ -61,9 +61,10 @@ export const Top: FC = memo(() => {
                 <DrinkCard
                   id={data.id}
                   image={data.image}
-                  username={data.username}
+                  username={data.user?.name}
                   name={data.name}
-                  avatar={data.avatar}
+                  avatar={data.user?.image}
+                  userId={data.userId}
                 />
               </Box>
             ))}

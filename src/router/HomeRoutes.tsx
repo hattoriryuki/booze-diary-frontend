@@ -1,8 +1,9 @@
-import { Detail } from "../components/pages/Detail";
-import { Index } from "../components/pages/Index";
-import { Login } from "../components/pages/Login";
-import { PostCreation } from "../components/pages/PostCreation";
-import { SignUp } from "../components/pages/SignUp";
+import { Detail } from "../components/pages/post/Detail";
+import { Index } from "../components/pages/post/Index";
+import { Login } from "../components/pages/auth/Login";
+import { Creation } from "../components/pages/post/Creation";
+import { Detail as UserDetail } from "../components/pages/user/Detail";
+import { SignUp } from "../components/pages/auth/SignUp";
 import { Top } from "../components/pages/Top";
 
 export const homeRoutes = [
@@ -24,10 +25,14 @@ export const homeRoutes = [
   },
   {
     path: "/new",
-    element: <PostCreation />,
+    element: <Creation />,
   },
   {
     path: "/posts/:id",
     element: <Detail />,
+  },
+  {
+    path: "/users/:id",
+    element: <UserDetail />,
   },
 ];

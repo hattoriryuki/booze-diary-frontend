@@ -13,10 +13,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router";
 
-import { DrinkCard } from "../organisms/DrinkCard";
-import { LoginUserContext } from "../../providers/LoginUserProvider";
-import { useGetAllPosts } from "../../hooks/useGetAllPosts";
-import { PostParams } from "../../types/api/post";
+import { DrinkCard } from "../../organisms/DrinkCard";
+import { LoginUserContext } from "../../../providers/LoginUserProvider";
+import { useGetAllPosts } from "../../../hooks/useGetAllPosts";
+import { PostParams } from "../../../types/api/post";
 
 export const Index: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
@@ -64,9 +64,10 @@ export const Index: FC = memo(() => {
               <DrinkCard
                 id={data.id}
                 image={data.image}
-                username={data.username}
+                username={data.user?.name}
                 name={data.name}
-                avatar={data.avatar}
+                avatar={data.user?.image}
+                userId={data.userId}
               />
             </Box>
           ))}

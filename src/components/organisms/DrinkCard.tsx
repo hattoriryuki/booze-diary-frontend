@@ -1,6 +1,9 @@
 import { FC, memo } from "react";
-import { Avatar, Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Avatar, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+
+import { PrimaryImage } from "../atoms/PrimaryImage";
+import { StandOutBox } from "../atoms/StandOutBox";
 
 type Props = {
   id: number;
@@ -8,34 +11,16 @@ type Props = {
   username: string | undefined;
   name: string;
   avatar?: string;
+  userId: number;
 };
 
 export const DrinkCard: FC<Props> = memo((props) => {
-  const { id, image, username, name, avatar } = props;
+  const { id, image, username, name, avatar, userId } = props;
 
   return (
-    <Box
-      position="relative"
-      borderRadius="10px"
-      cursor="pointer"
-      transition="all .3s"
-      boxShadow="lg"
-      _hover={{
-        position: "relative",
-        top: "-3px",
-        boxShadow: "0 2px 3px rgba(0, 0, 0, 0.3)",
-      }}
-    >
+    <StandOutBox>
       <Link to={`/posts/${id}`}>
-        <Image
-          src={image}
-          alt="Drink image"
-          w="300px"
-          h="200px"
-          borderRadius="10px"
-          aspectRatio="16 / 9"
-          objectFit="cover"
-        />
+        <PrimaryImage argument={{ image: image, alt: "Drink image" }} />
       </Link>
       <Flex
         position="absolute"
@@ -49,19 +34,21 @@ export const DrinkCard: FC<Props> = memo((props) => {
       >
         <Flex position="absolute" top="-16px" left={2} alignItems="center">
           <Avatar size="sm" src={avatar} />
-          <Text
-            ml={2}
-            color="white"
-            fontSize="sm"
-            _hover={{ textDecoration: "underline", color: "blue.500" }}
-          >
-            {username}
-          </Text>
+          <Link to={`/users/${userId}`}>
+            <Text
+              ml={2}
+              color="white"
+              fontSize="sm"
+              _hover={{ textDecoration: "underline", color: "blue.500" }}
+            >
+              {username}
+            </Text>
+          </Link>
         </Flex>
         <Heading fontSize="medium" color="white">
           {name}
         </Heading>
       </Flex>
-    </Box>
+    </StandOutBox>
   );
 });

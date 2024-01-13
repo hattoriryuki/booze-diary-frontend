@@ -2,11 +2,11 @@ import { FC, memo, useCallback, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Avatar } from "@chakra-ui/avatar";
 
-import { PasswordInput } from "../molecules/PasswordInput";
-import { PrimaryButton } from "../atoms/PrimaryButton";
-import { PrimaryInputArea } from "../molecules/PrimaryInputArea";
-import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
-import { useSignUp } from "../../hooks/useSignUp";
+import { PasswordInput } from "../../molecules/PasswordInput";
+import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { PrimaryInputArea } from "../../molecules/PrimaryInputArea";
+import { UploadPhotoButton } from "../../molecules/UploadPhotoButton";
+import { useSignUp } from "../../../hooks/useSignUp";
 
 export const SignUp: FC = memo(() => {
   const [name, setName] = useState("");
