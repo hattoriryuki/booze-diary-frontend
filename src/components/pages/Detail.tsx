@@ -15,6 +15,7 @@ import { PostParams } from "../../types/api/post";
 import { useGetDetail } from "../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../hooks/useDisplayRecommend";
 import { PrimaryImage } from "../atoms/PrimaryImage";
+import { Link } from "react-router-dom";
 
 export const Detail: FC = memo(() => {
   const [data, setData] = useState<PostParams>();
@@ -57,13 +58,15 @@ export const Detail: FC = memo(() => {
           <Box>
             <Flex align="center" w={{ base: "300px", md: "600px" }}>
               <Avatar src={data?.user?.image} />
-              <Text
-                ml={2}
-                cursor="pointer"
-                _hover={{ textDecoration: "underline", color: "blue.500" }}
-              >
-                {data?.user?.name}
-              </Text>
+              <Link to={`/users/${data?.userId}`}>
+                <Text
+                  ml={2}
+                  cursor="pointer"
+                  _hover={{ textDecoration: "underline", color: "blue.500" }}
+                >
+                  {data?.user?.name}
+                </Text>
+              </Link>
             </Flex>
             <Box mt={4} boxShadow="lg" borderRadius="10px">
               <PrimaryImage
