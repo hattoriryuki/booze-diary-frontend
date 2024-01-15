@@ -39,7 +39,6 @@ export const Index: FC = memo(() => {
             right={4}
             fontSize="x-large"
             bg="none"
-            zIndex={10}
             p={0}
             _hover={{ bg: "none", color: "gray.500" }}
             onClick={() => navigate("/new")}

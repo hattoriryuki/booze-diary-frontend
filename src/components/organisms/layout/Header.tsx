@@ -4,14 +4,17 @@ import { useNavigate } from "react-router-dom";
 
 import logoImage from "../../../assets/images/logo.png";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
+import { useSignOut } from "../../../hooks/useSignOut";
 
 export const Header: FC = memo(() => {
   const navigate = useNavigate();
   const { isSignedIn } = useContext(LoginUserContext);
+  const { signOut } = useSignOut();
 
   const onClickLogin = useCallback(() => navigate("/login"), []);
   const onClickSignUp = useCallback(() => navigate("/signup"), []);
   const onClickTop = useCallback(() => navigate("/"), []);
+  const onClickSignOut = useCallback(() => signOut(), []);
 
   return (
     <Flex
@@ -34,7 +37,9 @@ export const Header: FC = memo(() => {
       />
       <Box>
         {isSignedIn ? (
-          <Link mr={4}>ログアウト</Link>
+          <Link mr={4} onClick={onClickSignOut}>
+            ログアウト
+          </Link>
         ) : (
           <>
             <Link mr={4} onClick={onClickLogin}>
