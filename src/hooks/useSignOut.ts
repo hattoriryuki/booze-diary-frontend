@@ -19,7 +19,7 @@ export const useSignOut = () => {
       Cookies.remove("_uid");
       setIsSignedIn(false);
       setCurrentUser(undefined);
-      navigate("/posts");
+      navigate("/");
       showToastMsg({ status: "info", title: "ログアウトしました" });
     } catch (err) {
       showToastMsg({ status: "error", title: "ログアウトに失敗しました" });
