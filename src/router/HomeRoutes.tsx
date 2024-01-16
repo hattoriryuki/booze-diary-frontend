@@ -24,7 +24,7 @@ export const homeRoutes = [
     element: <Index />,
   },
   {
-    path: "/new",
+    path: "/posts/new",
     element: <Creation />,
   },
   {
