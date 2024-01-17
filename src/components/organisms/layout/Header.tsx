@@ -1,20 +1,36 @@
-import { FC, memo, useCallback, useContext } from "react";
-import { Box, Flex, Image, Link } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import {
+  FC,
+  ReactNode,
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { Box, Flex, Image, Text, Link as ChakraLink } from "@chakra-ui/react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import logoImage from "../../../assets/images/logo.png";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
-import { useSignOut } from "../../../hooks/useSignOut";
+import { HamburgerMenu } from "../HamburgerMenu";
+import { useSelectLink } from "../../../hooks/useSelectLink";
 
 export const Header: FC = memo(() => {
+  const [link, setLink] = useState<ReactNode>();
   const navigate = useNavigate();
   const { isSignedIn } = useContext(LoginUserContext);
-  const { signOut } = useSignOut();
+  const { selectLink } = useSelectLink({setLink});
+  const location = useLocation();
 
   const onClickLogin = useCallback(() => navigate("/login"), []);
   const onClickSignUp = useCallback(() => navigate("/signup"), []);
   const onClickTop = useCallback(() => navigate("/"), []);
-  const onClickSignOut = useCallback(() => signOut(), []);
+
+  useEffect(() => {
+    selectLink();
+  }, [location]);
 
   return (
     <Flex
@@ -37,17 +53,28 @@ export const Header: FC = memo(() => {
       />
       <Box>
         {isSignedIn ? (
-          <Link mr={4} onClick={onClickSignOut}>
-            ログアウト
-          </Link>
+          <Flex align="center">
+            <Flex gap={7} display={{ base: "none", md: "flex" }}>
+              <ChakraLink>{link}</ChakraLink>
+              <ChakraLink mr={7}>
+                <Link to="/posts/new">
+                  <Flex align="center">
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <Text ml={1}>投稿する</Text>
+                  </Flex>
+                </Link>
+              </ChakraLink>
+            </Flex>
+            <HamburgerMenu />
+          </Flex>
         ) : (
           <>
-            <Link mr={4} onClick={onClickLogin}>
+            <ChakraLink mr={4} onClick={onClickLogin}>
               ログイン
-            </Link>
-            <Link mr={4} onClick={onClickSignUp}>
+            </ChakraLink>
+            <ChakraLink mr={4} onClick={onClickSignUp}>
               新規登録
-            </Link>
+            </ChakraLink>
           </>
         )}
       </Box>
