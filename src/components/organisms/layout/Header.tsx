@@ -15,20 +15,14 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import logoImage from "../../../assets/images/logo.png";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { HamburgerMenu } from "../HamburgerMenu";
+import { useSelectLink } from "../../../hooks/useSelectLink";
 
 export const Header: FC = memo(() => {
   const [link, setLink] = useState<ReactNode>();
   const navigate = useNavigate();
   const { isSignedIn } = useContext(LoginUserContext);
+  const { selectLink } = useSelectLink({setLink});
   const location = useLocation();
-
-  const selectLink = () => {
-    if (location.pathname === "/posts") {
-      setLink(<Link to="/">トップ</Link>);
-    } else {
-      setLink(<Link to="/posts">ギャラリー</Link>);
-    }
-  };
 
   const onClickLogin = useCallback(() => navigate("/login"), []);
   const onClickSignUp = useCallback(() => navigate("/signup"), []);
@@ -59,16 +53,18 @@ export const Header: FC = memo(() => {
       />
       <Box>
         {isSignedIn ? (
-          <Flex align="center" gap={7}>
-            <ChakraLink>{link}</ChakraLink>
-            <ChakraLink>
-              <Link to="/posts/new">
-                <Flex align="center">
-                  <FontAwesomeIcon icon={faPenToSquare} />
-                  <Text ml={1}>投稿する</Text>
-                </Flex>
-              </Link>
-            </ChakraLink>
+          <Flex align="center">
+            <Flex gap={7} display={{ base: "none", md: "flex" }}>
+              <ChakraLink>{link}</ChakraLink>
+              <ChakraLink mr={7}>
+                <Link to="/posts/new">
+                  <Flex align="center">
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                    <Text ml={1}>投稿する</Text>
+                  </Flex>
+                </Link>
+              </ChakraLink>
+            </Flex>
             <HamburgerMenu />
           </Flex>
         ) : (
