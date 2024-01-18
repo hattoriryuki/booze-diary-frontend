@@ -56,7 +56,7 @@ export const HamburgerMenu: FC = memo(() => {
           mt={1}
         >
           <MenuDivider />
-          <MenuItem>
+          <MenuItem onClick={() => navigate("/profile")}>
             <FontAwesomeIcon icon={faAddressCard} />
             <Text ml={2}>マイページ</Text>
           </MenuItem>
