@@ -1,4 +1,4 @@
-import { FC, memo, useContext, useEffect } from "react";
+import { FC, memo, useContext, useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -19,13 +19,16 @@ import { useGetDetail } from "../../../hooks/useGetDetail";
 import { userReq } from "../../../api/userRequest";
 
 export const Profile: FC = memo(() => {
+  const [user, setUser] = useState<UserDetailParams>();
   const { currentUser } = useContext(LoginUserContext);
-  const { getDetail, data } = useGetDetail({ request: userReq });
+  const { getDetail } = useGetDetail({
+    setData: setUser,
+    request: userReq,
+  });
 
   useEffect(() => {
     if (!currentUser) return;
-    const cast = String(currentUser.id);
-    getDetail(cast);
+    getDetail(currentUser.id);
   }, []);
 
   return (
@@ -79,13 +82,13 @@ export const Profile: FC = memo(() => {
           過去の投稿
         </Heading>
         <SimpleGrid mt={2} columns={{ base: 1, md: 4 }} gap={4}>
-          {data?.posts.map((val: UserDetailParams) => (
-            <Link to={`/posts/${val.id}`} key={val.id}>
+          {user?.posts.map((data) => (
+            <Link to={`/posts/${data.id}`} key={data.id}>
               <StandOutBox>
                 <PrimaryImage
-                  argument={{ image: val.image, alt: "Drink image" }}
+                  argument={{ image: data.image, alt: "Drink image" }}
                 />
-                <Text align="center">{val.name}</Text>
+                <Text align="center">{data.name}</Text>
               </StandOutBox>
             </Link>
           ))}

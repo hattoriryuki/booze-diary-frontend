@@ -1,16 +1,16 @@
-import { useCallback, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import { AxiosResponse } from "axios";
 
-type Props = {
-  request: (id: string | undefined) => Promise<AxiosResponse<any, any>>;
-};
+interface Props<T, P> {
+  request: (id: T | undefined) => Promise<AxiosResponse<any, any>>;
+  setData: Dispatch<SetStateAction<P>>;
+}
 
-export const useGetDetail = (props: Props) => {
-  const { request } = props;
-  const [data, setData] = useState<any>();
+export const useGetDetail = <T, P>(props: Props<T, P>) => {
+  const { request, setData } = props;
   const [loading, setLoading] = useState(false);
 
-  const getDetail = useCallback(async (query: string | undefined) => {
+  const getDetail = useCallback(async (query: T | undefined) => {
     setLoading(true);
     try {
       const res = await request(query);
@@ -21,5 +21,5 @@ export const useGetDetail = (props: Props) => {
       setLoading(false);
     }
   }, []);
-  return { getDetail, loading, data };
+  return { getDetail, loading };
 };
