@@ -9,37 +9,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import Cookies from "js-cookie";
 
 import { StandOutBox } from "../../atoms/StandOutBox";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
-import { client } from "../../../api/client";
 import { UserDetailParams } from "../../../types/api/user";
 import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { useGetProfile } from "../../../hooks/useGetProfile";
 
 export const Profile: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
   const { currentUser } = useContext(LoginUserContext);
-
-  const getUserReq = (id: number) => {
-    return client.get(`/profiles/${id}`, {
-      headers: {
-        "access-token": Cookies.get("_access_token"),
-        client: Cookies.get("_client"),
-        uid: Cookies.get("_uid"),
-      },
-    });
-  };
-
-  const getProfile = async (id: number) => {
-    try {
-      const res = await getUserReq(id);
-      setUser(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const { getProfile } = useGetProfile({ setUser });
 
   useEffect(() => {
     if (!currentUser) return;
@@ -60,7 +41,7 @@ export const Profile: FC = memo(() => {
         </Heading>
         <Box as={Flex} align="center" mt={8}>
           <Avatar
-            size={{ base: "md", md: "2xl" }}
+            size={{ base: "md", md: "xl" }}
             mb={2}
             mr={4}
             src={currentUser?.image}
