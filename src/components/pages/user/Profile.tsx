@@ -2,9 +2,11 @@ import { FC, memo, useContext, useEffect, useState } from "react";
 import {
   Avatar,
   Box,
+  Center,
   Flex,
   Heading,
   SimpleGrid,
+  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -21,7 +23,7 @@ import { userReq } from "../../../api/userRequest";
 export const Profile: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
   const { currentUser } = useContext(LoginUserContext);
-  const { getDetail } = useGetDetail({
+  const { getDetail, loading } = useGetDetail({
     setData: setUser,
     request: userReq,
   });
@@ -81,18 +83,24 @@ export const Profile: FC = memo(() => {
         <Heading mt={8} mb={2} fontSize={{ base: "sm", md: "xl" }}>
           過去の投稿
         </Heading>
-        <SimpleGrid mt={2} columns={{ base: 1, md: 4 }} gap={4}>
-          {user?.posts.map((data) => (
-            <Link to={`/posts/${data.id}`} key={data.id}>
-              <StandOutBox>
-                <PrimaryImage
-                  argument={{ image: data.image, alt: "Drink image" }}
-                />
-                <Text align="center">{data.name}</Text>
-              </StandOutBox>
-            </Link>
-          ))}
-        </SimpleGrid>
+        {loading ? (
+          <Center h="100%">
+            <Spinner />
+          </Center>
+        ) : (
+          <SimpleGrid mt={2} columns={{ base: 1, md: 4 }} gap={4}>
+            {user?.posts.map((data) => (
+              <Link to={`/posts/${data.id}`} key={data.id}>
+                <StandOutBox>
+                  <PrimaryImage
+                    argument={{ image: data.image, alt: "Drink image" }}
+                  />
+                  <Text align="center">{data.name}</Text>
+                </StandOutBox>
+              </Link>
+            ))}
+          </SimpleGrid>
+        )}
       </Flex>
     </Box>
   );
