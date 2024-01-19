@@ -1,4 +1,4 @@
-import { FC, memo, useContext, useEffect, useState } from "react";
+import { FC, memo, useContext, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -15,16 +15,17 @@ import { PrimaryImage } from "../../atoms/PrimaryImage";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { UserDetailParams } from "../../../types/api/user";
 import { PrimaryButton } from "../../atoms/PrimaryButton";
-import { useGetProfile } from "../../../hooks/useGetProfile";
+import { useGetDetail } from "../../../hooks/useGetDetail";
+import { userReq } from "../../../api/userRequest";
 
 export const Profile: FC = memo(() => {
-  const [user, setUser] = useState<UserDetailParams>();
   const { currentUser } = useContext(LoginUserContext);
-  const { getProfile } = useGetProfile({ setUser });
+  const { getDetail, data } = useGetDetail({ request: userReq });
 
   useEffect(() => {
     if (!currentUser) return;
-    getProfile(currentUser?.id);
+    const cast = String(currentUser.id);
+    getDetail(cast);
   }, []);
 
   return (
@@ -78,13 +79,13 @@ export const Profile: FC = memo(() => {
           過去の投稿
         </Heading>
         <SimpleGrid mt={2} columns={{ base: 1, md: 4 }} gap={4}>
-          {user?.posts.map((data) => (
-            <Link to={`/posts/${data.id}`}>
-              <StandOutBox key={data.id}>
+          {data?.posts.map((val: UserDetailParams) => (
+            <Link to={`/posts/${val.id}`} key={val.id}>
+              <StandOutBox>
                 <PrimaryImage
-                  argument={{ image: data.image, alt: "Drink image" }}
+                  argument={{ image: val.image, alt: "Drink image" }}
                 />
-                <Text align="center">{data.name}</Text>
+                <Text align="center">{val.name}</Text>
               </StandOutBox>
             </Link>
           ))}

@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
+import { FC, memo, useCallback, useEffect, useRef } from "react";
 import {
   Avatar,
   Box,
@@ -9,19 +9,17 @@ import {
   Text,
   TextProps,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
-import { PostParams } from "../../../types/api/post";
 import { useGetDetail } from "../../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
-import { Link } from "react-router-dom";
+import { getDetailReq } from "../../../api/postRequest";
 
 export const Detail: FC = memo(() => {
-  const [data, setData] = useState<PostParams>();
   const recommend = useRef("");
   const query = useParams();
-  const { getDetail, loading } = useGetDetail({ setData });
+  const { getDetail, loading, data } = useGetDetail({ request: getDetailReq });
   const { displayRecommend } = useDisplayRecommend();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
@@ -30,7 +28,7 @@ export const Detail: FC = memo(() => {
   }, []);
 
   useEffect(() => {
-    getDetail(query);
+    getDetail(query.id);
   }, [query]);
 
   useEffect(() => {
