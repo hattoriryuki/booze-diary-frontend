@@ -47,19 +47,34 @@ export const Profile: FC = memo(() => {
   }, []);
 
   return (
-    <Box>
-      <Flex direction="column" mt={16} h="100vh" align="center">
+    <Box mt={16}>
+      <Flex
+        direction="column"
+        mt={16}
+        h="100vh"
+        align="center"
+        overflowY="scroll"
+      >
         <Heading fontSize="3xl" color="#0A2463" mt={6}>
           マイページ
         </Heading>
         <Box as={Flex} align="center" mt={8}>
-          <Avatar size="2xl" mb={2} mr={4} src={currentUser?.image} />
+          <Avatar
+            size={{ base: "md", md: "2xl" }}
+            mb={2}
+            mr={4}
+            src={currentUser?.image}
+          />
           <Stack>
             <Flex align="center">
               <Text fontSize="sm" mr={3}>
                 Name:
               </Text>
-              <Text align="center" fontSize="2xl" fontWeight="bold">
+              <Text
+                align="center"
+                fontSize={{ base: "lg", md: "2xl" }}
+                fontWeight="bold"
+              >
                 {currentUser?.name}
               </Text>
             </Flex>
@@ -67,14 +82,18 @@ export const Profile: FC = memo(() => {
               <Text fontSize="sm" mr={3}>
                 Email:
               </Text>
-              <Text align="center" fontSize="2xl" fontWeight="bold">
+              <Text
+                align="center"
+                fontSize={{ base: "lg", md: "2xl" }}
+                fontWeight="bold"
+              >
                 {currentUser?.email}
               </Text>
             </Flex>
           </Stack>
-          <PrimaryButton ml={20}>編集</PrimaryButton>
+          <PrimaryButton ml={{ base: 4, md: 20 }}>編集</PrimaryButton>
         </Box>
-        <Heading mt={8} fontSize={{ base: "sm", md: "xl" }}>
+        <Heading mt={8} mb={2} fontSize={{ base: "sm", md: "xl" }}>
           過去の投稿
         </Heading>
         <SimpleGrid mt={2} columns={{ base: 1, md: 4 }} gap={4}>
