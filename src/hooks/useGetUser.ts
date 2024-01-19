@@ -4,7 +4,8 @@ import { Params } from "react-router-dom";
 
 import { UserDetailParams } from "../types/api/user";
 
-type Props = Dispatch<SetStateAction<UserDetailParams | undefined>>;
+type Detail = Omit<UserDetailParams, "email">
+type Props = Dispatch<SetStateAction<Detail | undefined>>;
 
 export const useGetUser = (setUser: Props) => {
   const getUser = useCallback((query: Readonly<Params<string>>) => {
@@ -21,7 +22,7 @@ export const useGetUser = (setUser: Props) => {
     }
   }, []);
 
-  const sortPosts = useCallback((data: UserDetailParams | undefined) => {
+  const sortPosts = useCallback((data: Detail | undefined) => {
     if (!data) return;
     data.posts.sort((x, y) => {
       if (x.created_at < y.created_at) {

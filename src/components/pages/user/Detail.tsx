@@ -8,8 +8,10 @@ import { PrimaryImage } from "../../atoms/PrimaryImage";
 import { Link } from "react-router-dom";
 import { StandOutBox } from "../../atoms/StandOutBox";
 
+type Detail = Omit<UserDetailParams, "email">
+
 export const Detail: FC = memo(() => {
-  const [user, setUser] = useState<UserDetailParams>();
+  const [user, setUser] = useState<Detail>();
   const { getUser } = useGetUser(setUser);
   const query = useParams();
 
