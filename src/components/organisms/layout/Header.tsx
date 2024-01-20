@@ -14,7 +14,7 @@ import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 
 import logoImage from "../../../assets/images/logo.png";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
-import { HamburgerMenu } from "../HamburgerMenu";
+import { HamburgerMenu } from "../../molecules/HamburgerMenu";
 import { useSelectLink } from "../../../hooks/useSelectLink";
 
 export const Header: FC = memo(() => {

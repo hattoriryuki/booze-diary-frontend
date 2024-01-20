@@ -1,24 +1,26 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
+import { Dispatch, SetStateAction, useCallback, useState } from "react";
 import axios from "axios";
 import { Params } from "react-router-dom";
 
 import { UserDetailParams } from "../types/api/user";
 
-type Detail = Omit<UserDetailParams, "email">
+type Detail = Omit<UserDetailParams, "email">;
 type Props = Dispatch<SetStateAction<Detail | undefined>>;
 
 export const useGetUser = (setUser: Props) => {
+  const [loading, setLoading] = useState(false);
+
   const getUser = useCallback((query: Readonly<Params<string>>) => {
     if (setUser) {
+      setLoading(true);
       axios
         .get(`${process.env.REACT_APP_USER_CLIENT}/${query.id}`)
         .then((res) => {
           sortPosts(res.data);
           setUser(res.data);
         })
-        .catch(() => {
-          console.log("User acquisition error");
-        });
+        .catch(() => console.log("User acquisition error"))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -34,5 +36,5 @@ export const useGetUser = (setUser: Props) => {
       return 0;
     });
   }, []);
-  return { getUser };
+  return { getUser, loading };
 };
