@@ -84,7 +84,7 @@ export const SignUp: FC = memo(() => {
         <Box w={{ base: "90%", md: "50%" }} mt={10} pb={5}>
           <Text color="#0A2463">アイコン</Text>
           <Flex justify="space-between" mt={2}>
-            <UploadPhotoButton setPhoto={setIcon} />
+            <UploadPhotoButton argument={{ setPhoto: setIcon }} />
             <Avatar size="lg" src={icon} />
           </Flex>
         </Box>

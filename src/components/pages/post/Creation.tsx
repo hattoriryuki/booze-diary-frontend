@@ -105,7 +105,7 @@ export const Creation: FC = memo(() => {
       >
         <Box>
           <Text>写真*</Text>
-          <UploadPhotoButton setPhoto={setImage} />
+          <UploadPhotoButton argument={{ setPhoto: setImage }} />
         </Box>
         {image ? <Image src={image} h="150px" mt={6} /> : <ImageBox />}
       </Flex>
