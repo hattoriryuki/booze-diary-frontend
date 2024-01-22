@@ -1,12 +1,4 @@
-import {
-  Dispatch,
-  FC,
-  SetStateAction,
-  memo,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import {
   Avatar,
   Flex,
@@ -28,25 +20,19 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { UserDetailParams } from "../../types/api/user";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
-import { updateProfileReq } from "../../api/profileRequest";
-import { LoginUserContext } from "../../providers/LoginUserProvider";
-import { useToastMsg } from "../../hooks/useToastMsg";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   user: UserDetailParams | undefined;
-  setFlag: Dispatch<SetStateAction<boolean>>;
+  updateProfile: (name: string, email: string, image: string) => void;
 };
 
 export const UserEditModal: FC<Props> = memo((props) => {
-  const { isOpen, onClose, user, setFlag } = props;
+  const { isOpen, onClose, user, updateProfile } = props;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
-
-  const { setCurrentUser } = useContext(LoginUserContext);
-  const { showToastMsg } = useToastMsg();
 
   useEffect(() => {
     if (!user) return;
@@ -55,26 +41,9 @@ export const UserEditModal: FC<Props> = memo((props) => {
     setImage(user.image);
   }, [user]);
 
-  const onClickUpdate = async () => {
-    if (!user) return;
-    try {
-      const res = await updateProfileReq(user?.id, { name, email, image });
-      if (res.status === 200) {
-        setFlag(true);
-        onClose();
-        setCurrentUser(res.data);
-        showToastMsg({
-          status: "success",
-          title: "プロフィールの更新が完了しました",
-        });
-      }
-    } catch (err) {
-      showToastMsg({
-        status: "error",
-        title: "プロフィールの更新に失敗しました",
-      });
-    }
-  };
+  const onClickUpdate = useCallback(() => {
+    updateProfile(name, email, image);
+  }, [name, email, image]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} autoFocus={false}>

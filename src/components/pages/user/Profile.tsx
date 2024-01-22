@@ -15,6 +15,7 @@ import { useGetDetail } from "../../../hooks/useGetDetail";
 import { profileReq } from "../../../api/profileRequest";
 import { DetailTemplate } from "../../organisms/DetailTemplate";
 import { UserEditModal } from "../../organisms/UserEditModal";
+import { useUpdateProfile } from "../../../hooks/useUpdateProfile";
 
 export const Profile: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
@@ -25,6 +26,7 @@ export const Profile: FC = memo(() => {
     setData: setUser,
     request: profileReq,
   });
+  const { updateProfile } = useUpdateProfile({ user, setEditFlag, onClose });
 
   useEffect(() => {
     if (!currentUser) return;
@@ -83,7 +85,7 @@ export const Profile: FC = memo(() => {
         isOpen={isOpen}
         onClose={onClose}
         user={user}
-        setFlag={setEditFlag}
+        updateProfile={updateProfile}
       />
     </>
   );
