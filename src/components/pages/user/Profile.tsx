@@ -12,23 +12,25 @@ import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { UserDetailParams } from "../../../types/api/user";
 import { PrimaryButton } from "../../atoms/PrimaryButton";
 import { useGetDetail } from "../../../hooks/useGetDetail";
-import { userReq } from "../../../api/userRequest";
+import { profileReq } from "../../../api/profileRequest";
 import { DetailTemplate } from "../../organisms/DetailTemplate";
 import { UserEditModal } from "../../organisms/UserEditModal";
 
 export const Profile: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
+  const [editFlag, setEditFlag] = useState(false);
   const { currentUser } = useContext(LoginUserContext);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { getDetail, loading } = useGetDetail({
     setData: setUser,
-    request: userReq,
+    request: profileReq,
   });
 
   useEffect(() => {
     if (!currentUser) return;
     getDetail(currentUser.id);
-  }, []);
+    if (editFlag) setEditFlag(false);
+  }, [editFlag]);
 
   const onClickEdit = () => onOpen();
 
@@ -44,7 +46,7 @@ export const Profile: FC = memo(() => {
             size={{ base: "md", md: "xl" }}
             mb={2}
             mr={4}
-            src={currentUser?.image}
+            src={user?.image}
           />
           <Stack>
             <Flex align="center">
@@ -56,7 +58,7 @@ export const Profile: FC = memo(() => {
                 fontSize={{ base: "lg", md: "2xl" }}
                 fontWeight="bold"
               >
-                {currentUser?.name}
+                {user?.name}
               </Text>
             </Flex>
             <Flex align="center">
@@ -68,7 +70,7 @@ export const Profile: FC = memo(() => {
                 fontSize={{ base: "lg", md: "2xl" }}
                 fontWeight="bold"
               >
-                {currentUser?.email}
+                {user?.email}
               </Text>
             </Flex>
           </Stack>
@@ -77,7 +79,12 @@ export const Profile: FC = memo(() => {
           </PrimaryButton>
         </Box>
       </DetailTemplate>
-      <UserEditModal isOpen={isOpen} onClose={onClose} user={user} />
+      <UserEditModal
+        isOpen={isOpen}
+        onClose={onClose}
+        user={user}
+        setFlag={setEditFlag}
+      />
     </>
   );
 });

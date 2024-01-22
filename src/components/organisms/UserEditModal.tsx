@@ -1,4 +1,12 @@
-import { FC, memo, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FC,
+  SetStateAction,
+  memo,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import {
   Avatar,
   Flex,
@@ -15,30 +23,58 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { UserDetailParams } from "../../types/api/user";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
-import { ArrowBackIcon } from "@chakra-ui/icons";
+import { updateProfileReq } from "../../api/profileRequest";
+import { LoginUserContext } from "../../providers/LoginUserProvider";
+import { useToastMsg } from "../../hooks/useToastMsg";
 
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   user: UserDetailParams | undefined;
+  setFlag: Dispatch<SetStateAction<boolean>>;
 };
 
 export const UserEditModal: FC<Props> = memo((props) => {
-  const { isOpen, onClose, user } = props;
+  const { isOpen, onClose, user, setFlag } = props;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [icon, setIcon] = useState("");
+  const [image, setImage] = useState("");
+
+  const { setCurrentUser } = useContext(LoginUserContext);
+  const { showToastMsg } = useToastMsg();
 
   useEffect(() => {
     if (!user) return;
     setName(user.name);
     setEmail(user.email);
-    setIcon(user.image);
+    setImage(user.image);
   }, [user]);
+
+  const onClickUpdate = async () => {
+    if (!user) return;
+    try {
+      const res = await updateProfileReq(user?.id, { name, email, image });
+      if (res.status === 200) {
+        setFlag(true);
+        onClose();
+        setCurrentUser(res.data);
+        showToastMsg({
+          status: "success",
+          title: "プロフィールの更新が完了しました",
+        });
+      }
+    } catch (err) {
+      showToastMsg({
+        status: "error",
+        title: "プロフィールの更新に失敗しました",
+      });
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} autoFocus={false}>
@@ -59,8 +95,11 @@ export const UserEditModal: FC<Props> = memo((props) => {
             <FormControl>
               <FormLabel>アイコン:</FormLabel>
               <Flex justify="space-between">
-                <UploadPhotoButton argument={{ setPhoto: setIcon }} size="sm" />
-                <Avatar size="xl" src={icon} />
+                <UploadPhotoButton
+                  argument={{ setPhoto: setImage }}
+                  size="sm"
+                />
+                <Avatar size="xl" src={image} />
               </Flex>
             </FormControl>
           </Stack>
@@ -76,7 +115,7 @@ export const UserEditModal: FC<Props> = memo((props) => {
               _hover={{ bg: "blackAlpha.100" }}
               onClick={onClose}
             />
-            <PrimaryButton>更新</PrimaryButton>
+            <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
           </Flex>
         </ModalFooter>
       </ModalContent>
