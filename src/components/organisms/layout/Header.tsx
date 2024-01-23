@@ -21,7 +21,7 @@ export const Header: FC = memo(() => {
   const [link, setLink] = useState<ReactNode>();
   const navigate = useNavigate();
   const { isSignedIn } = useContext(LoginUserContext);
-  const { selectLink } = useSelectLink({setLink});
+  const { selectLink } = useSelectLink({ setLink });
   const location = useLocation();
 
   const onClickLogin = useCallback(() => navigate("/login"), []);
@@ -55,15 +55,15 @@ export const Header: FC = memo(() => {
         {isSignedIn ? (
           <Flex align="center">
             <Flex gap={7} display={{ base: "none", md: "flex" }}>
-              <ChakraLink>{link}</ChakraLink>
-              <ChakraLink mr={7}>
+              <Box _hover={{ textDecoration: "underline" }}>{link}</Box>
+              <Box mr={7} _hover={{ textDecoration: "underline" }}>
                 <Link to="/posts/new">
                   <Flex align="center">
                     <FontAwesomeIcon icon={faPenToSquare} />
                     <Text ml={1}>投稿する</Text>
                   </Flex>
                 </Link>
-              </ChakraLink>
+              </Box>
             </Flex>
             <HamburgerMenu />
           </Flex>
