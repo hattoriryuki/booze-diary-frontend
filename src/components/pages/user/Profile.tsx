@@ -7,6 +7,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { UserDetailParams } from "../../../types/api/user";
@@ -21,12 +22,17 @@ export const Profile: FC = memo(() => {
   const [user, setUser] = useState<UserDetailParams>();
   const [editFlag, setEditFlag] = useState(false);
   const { currentUser } = useContext(LoginUserContext);
+  const navigate = useNavigate();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { getDetail, loading } = useGetDetail({
     setData: setUser,
     request: profileReq,
   });
   const { updateProfile } = useUpdateProfile({ user, setEditFlag, onClose });
+
+  useEffect(() => {
+    if (!currentUser) navigate("/login");
+  }, []);
 
   useEffect(() => {
     if (!currentUser) return;
