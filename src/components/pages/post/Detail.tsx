@@ -9,19 +9,22 @@ import {
   Text,
   TextProps,
 } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
-import { PostParams } from "../../../types/api/post";
 import { useGetDetail } from "../../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
-import { Link } from "react-router-dom";
+import { getDetailReq } from "../../../api/postRequest";
+import { PostParams } from "../../../types/api/post";
 
 export const Detail: FC = memo(() => {
-  const [data, setData] = useState<PostParams>();
+  const [post, setPost] = useState<PostParams>();
   const recommend = useRef("");
   const query = useParams();
-  const { getDetail, loading } = useGetDetail({ setData });
+  const { getDetail, loading } = useGetDetail({
+    setData: setPost,
+    request: getDetailReq,
+  });
   const { displayRecommend } = useDisplayRecommend();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
@@ -30,15 +33,15 @@ export const Detail: FC = memo(() => {
   }, []);
 
   useEffect(() => {
-    getDetail(query);
+    getDetail(query.id);
   }, [query]);
 
   useEffect(() => {
-    displayRecommend({ data, recommend });
+    displayRecommend({ data: post, recommend });
     return () => {
       recommend.current = "";
     };
-  }, [data]);
+  }, [post]);
 
   return (
     <Box
@@ -57,20 +60,20 @@ export const Detail: FC = memo(() => {
         <>
           <Box>
             <Flex align="center" w={{ base: "300px", md: "600px" }}>
-              <Avatar src={data?.user?.image} />
-              <Link to={`/users/${data?.userId}`}>
+              <Avatar src={post?.user?.image} />
+              <Link to={`/users/${post?.userId}`}>
                 <Text
                   ml={2}
                   cursor="pointer"
                   _hover={{ textDecoration: "underline", color: "blue.500" }}
                 >
-                  {data?.user?.name}
+                  {post?.user?.name}
                 </Text>
               </Link>
             </Flex>
             <Box mt={4} boxShadow="lg" borderRadius="10px">
               <PrimaryImage
-                argument={{ image: data?.image, alt: "Drink image" }}
+                argument={{ image: post?.image, alt: "Drink image" }}
                 w={{ base: "300px", md: "600px" }}
                 h={{ base: "200px", md: "400px" }}
               />
@@ -84,11 +87,11 @@ export const Detail: FC = memo(() => {
                 ))}
               </Box>
               <Box ml={20}>
-                <StyledText>{data?.name}</StyledText>
+                <StyledText>{post?.name}</StyledText>
                 <StyledText>
-                  {data?.quantity || "登録されていません"}
+                  {post?.quantity || "登録されていません"}
                 </StyledText>
-                <StyledText>{data?.price || "登録されていません"}</StyledText>
+                <StyledText>{post?.price || "登録されていません"}</StyledText>
                 <StyledText>{recommend.current}</StyledText>
               </Box>
             </Flex>

@@ -1,21 +1,19 @@
 import { Dispatch, SetStateAction, useCallback, useState } from "react";
-import { Params } from "react-router-dom";
+import { AxiosResponse } from "axios";
 
-import { getDetailReq } from "../api/postRequest";
-import { PostParams } from "../types/api/post";
+interface Props<T, P> {
+  request: (id: T | undefined) => Promise<AxiosResponse<any, any>>;
+  setData: Dispatch<SetStateAction<P>>;
+}
 
-type Props = {
-  setData: Dispatch<SetStateAction<PostParams | undefined>>;
-};
-
-export const useGetDetail = (props: Props) => {
-  const { setData } = props;
+export const useGetDetail = <T, P>(props: Props<T, P>) => {
+  const { request, setData } = props;
   const [loading, setLoading] = useState(false);
 
-  const getDetail = useCallback(async (query: Readonly<Params<string>>) => {
+  const getDetail = useCallback(async (query: T | undefined) => {
     setLoading(true);
     try {
-      const res = await getDetailReq(query.id);
+      const res = await request(query);
       setData(res.data);
     } catch (err) {
       console.log(err);
