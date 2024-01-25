@@ -28,7 +28,7 @@ type Props = {
   updateProfile: (name: string, email: string, image: string) => void;
 };
 
-export const UserEditModal: FC<Props> = memo((props) => {
+export const EditUserModal: FC<Props> = memo((props) => {
   const { isOpen, onClose, user, updateProfile } = props;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

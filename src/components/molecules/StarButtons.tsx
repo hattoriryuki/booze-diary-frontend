@@ -1,9 +1,11 @@
 import {
   Dispatch,
   FC,
+  MutableRefObject,
   SetStateAction,
   memo,
   useCallback,
+  useEffect,
   useState,
 } from "react";
 import { Button } from "@chakra-ui/button";
@@ -13,11 +15,17 @@ import { faStar as faStarSub } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
   setRecommend: Dispatch<SetStateAction<number>>;
+  starRef?: MutableRefObject<boolean[]>;
 };
 
 export const StarButtons: FC<Props> = memo((props) => {
-  const { setRecommend } = props;
+  const { setRecommend, starRef } = props;
   const [ratings, setRatings] = useState([false, false, false, false, false]);
+
+  useEffect(() => {
+    if (!starRef) return;
+    setRatings(starRef.current);
+  }, [starRef]);
 
   const onClickSubmit = useCallback(
     (index: number) => {
