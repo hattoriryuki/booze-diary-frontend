@@ -4,6 +4,7 @@ import {
   Box,
   Center,
   Flex,
+  IconButton,
   Spinner,
   Stack,
   Text,
@@ -16,6 +17,8 @@ import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
 import { getDetailReq } from "../../../api/postRequest";
 import { PostParams } from "../../../types/api/post";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 export const Detail: FC = memo(() => {
   const [post, setPost] = useState<PostParams>();
@@ -59,17 +62,39 @@ export const Detail: FC = memo(() => {
       ) : (
         <>
           <Box>
-            <Flex align="center" w={{ base: "300px", md: "600px" }}>
-              <Avatar src={post?.user?.image} />
-              <Link to={`/users/${post?.userId}`}>
-                <Text
-                  ml={2}
-                  cursor="pointer"
-                  _hover={{ textDecoration: "underline", color: "blue.500" }}
-                >
-                  {post?.user?.name}
-                </Text>
-              </Link>
+            <Flex
+              align="end"
+              justify="space-between"
+              w={{ base: "300px", md: "600px" }}
+            >
+              <Flex align="center">
+                <Avatar src={post?.user?.image} />
+                <Link to={`/users/${post?.userId}`}>
+                  <Text
+                    ml={2}
+                    cursor="pointer"
+                    _hover={{ textDecoration: "underline", color: "blue.500" }}
+                  >
+                    {post?.user?.name}
+                  </Text>
+                </Link>
+              </Flex>
+              <Flex align="end">
+                <IconButton
+                  aria-label="Edit post"
+                  background="none"
+                  height="2rem"
+                  color="gray.600"
+                  icon={<FontAwesomeIcon icon={faPen} />}
+                />
+                <IconButton
+                  aria-label="Delete post"
+                  background="none"
+                  height="2rem"
+                  color="red.500"
+                  icon={<FontAwesomeIcon icon={faTrashCan} />}
+                />
+              </Flex>
             </Flex>
             <Box mt={4} boxShadow="lg" borderRadius="10px">
               <PrimaryImage
