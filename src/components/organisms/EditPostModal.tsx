@@ -1,4 +1,4 @@
-import { FC, memo, useEffect, useRef, useState } from "react";
+import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   Flex,
   FormControl,
@@ -20,15 +20,21 @@ import { PrimaryButton } from "../atoms/PrimaryButton";
 import { StarButtons } from "../molecules/StarButtons";
 import { PostParams } from "../../types/api/post";
 
+type UpdateParams = Pick<
+  PostParams,
+  "name" | "quantity" | "price" | "recommend"
+>;
+
 type Props = {
   isOpen: boolean;
   onClose: () => void;
   post: PostParams | undefined;
+  updatePost: (props: UpdateParams) => void;
 };
 
 export const EditPostModal: FC<Props> = memo((props) => {
-  const { isOpen, onClose, post } = props;
-  const [title, setTitle] = useState("");
+  const { isOpen, onClose, post, updatePost } = props;
+  const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
   const [recommend, setRecommend] = useState(0);
@@ -39,15 +45,15 @@ export const EditPostModal: FC<Props> = memo((props) => {
     for (let i = 0; i < post.recommend; i++) {
       starRef.current[i] = true;
     }
-    setTitle(post.name);
+    setName(post.name);
     setQuantity(post.quantity);
     setPrice(post.price);
     setRecommend(post.recommend);
   }, [post]);
 
-  const onClickUpdate = () => {
-    console.log(recommend);
-  };
+  const onClickUpdate = useCallback(() => {
+    updatePost({ name, quantity, price, recommend });
+  }, [name, quantity, price, recommend]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} autoFocus={false}>
@@ -59,7 +65,7 @@ export const EditPostModal: FC<Props> = memo((props) => {
           <Stack>
             <FormControl>
               <FormLabel>タイトル:</FormLabel>
-              <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+              <Input value={name} onChange={(e) => setName(e.target.value)} />
             </FormControl>
             <FormControl>
               <FormLabel>量:</FormLabel>

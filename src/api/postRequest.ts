@@ -3,6 +3,11 @@ import Cookies from "js-cookie";
 import { PostParams } from "../types/api/post";
 import { client, headers } from "./client";
 
+type UpdateParams = Pick<
+  PostParams,
+  "name" | "quantity" | "price" | "recommend"
+>;
+
 export const getListReq = () => {
   return client.get("/posts", { headers: headers });
 };
@@ -21,4 +26,8 @@ export const createPostReq = (
       uid: Cookies.get("_uid"),
     },
   });
+};
+
+export const updatePostReq = (id: number, params: UpdateParams) => {
+  return client.patch(`/posts/${id}`, params);
 };

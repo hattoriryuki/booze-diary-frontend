@@ -30,9 +30,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { EditPostModal } from "../../organisms/EditPostModal";
+import { useUpdatePost } from "../../../hooks/useUpdatePost";
 
 export const Detail: FC = memo(() => {
   const [post, setPost] = useState<PostParams>();
+  const [editFlag, setEditFlag] = useState(false);
+
   const recommend = useRef("");
   const query = useParams();
   const { getDetail, loading } = useGetDetail({
@@ -42,6 +45,7 @@ export const Detail: FC = memo(() => {
   const { displayRecommend } = useDisplayRecommend();
   const { currentUser } = useContext(LoginUserContext);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { updatePost } = useUpdatePost({ post, setEditFlag, onClose });
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
   const StyledText = useCallback(({ ...props }: TextProps) => {
@@ -50,7 +54,8 @@ export const Detail: FC = memo(() => {
 
   useEffect(() => {
     getDetail(query.id);
-  }, [query]);
+    if (editFlag) setEditFlag(false);
+  }, [query, editFlag]);
 
   useEffect(() => {
     displayRecommend({ data: post, recommend });
@@ -148,7 +153,12 @@ export const Detail: FC = memo(() => {
           </>
         )}
       </Box>
-      <EditPostModal isOpen={isOpen} onClose={onClose} post={post} />
+      <EditPostModal
+        isOpen={isOpen}
+        onClose={onClose}
+        post={post}
+        updatePost={updatePost}
+      />
     </>
   );
 });
