@@ -7,7 +7,7 @@ import {
 } from "react";
 
 import { PostParams } from "../types/api/post";
-import { getListReq } from "../api/postRequest";
+import { getListReq } from "../api/postRequests";
 import { useToastMsg } from "./useToastMsg";
 
 type Props = {

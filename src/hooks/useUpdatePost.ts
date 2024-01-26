@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 
-import { updatePostReq } from "../api/postRequest";
+import { updatePostReq } from "../api/postRequests";
 import { PostParams, UpdateParams } from "../types/api/post";
 import { useToastMsg } from "./useToastMsg";
 

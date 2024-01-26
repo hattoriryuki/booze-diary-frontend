@@ -13,7 +13,7 @@ import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { UserDetailParams } from "../../../types/api/user";
 import { PrimaryButton } from "../../atoms/PrimaryButton";
 import { useGetDetail } from "../../../hooks/useGetDetail";
-import { profileReq } from "../../../api/profileRequest";
+import { profileReq } from "../../../api/profileRequests";
 import { DetailTemplate } from "../../organisms/DetailTemplate";
 import { EditUserModal } from "../../organisms/EditUserModal";
 import { useUpdateProfile } from "../../../hooks/useUpdateProfile";

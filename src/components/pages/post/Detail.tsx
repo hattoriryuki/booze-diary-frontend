@@ -14,7 +14,7 @@ import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useGetDetail } from "../../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
-import { getDetailReq } from "../../../api/postRequest";
+import { getDetailReq } from "../../../api/postRequests";
 import { PostParams } from "../../../types/api/post";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { EditPostModal } from "../../organisms/EditPostModal";

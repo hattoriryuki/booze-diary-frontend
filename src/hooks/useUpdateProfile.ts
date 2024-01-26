@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useContext } from "react";
 
-import { updateProfileReq } from "../api/profileRequest";
+import { updateProfileReq } from "../api/profileRequests";
 import { UserDetailParams } from "../types/api/user";
 import { LoginUserContext } from "../providers/LoginUserProvider";
 import { useToastMsg } from "./useToastMsg";
