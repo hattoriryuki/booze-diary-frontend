@@ -13,3 +13,8 @@ export type PostParams = {
   user?: UserDetailParams;
   created_at: string;
 };
+
+export type UpdateParams = Pick<
+  PostParams,
+  "name" | "quantity" | "price" | "recommend"
+>;

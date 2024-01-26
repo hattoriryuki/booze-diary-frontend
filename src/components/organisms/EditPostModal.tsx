@@ -18,12 +18,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import { PrimaryButton } from "../atoms/PrimaryButton";
 import { StarButtons } from "../molecules/StarButtons";
-import { PostParams } from "../../types/api/post";
-
-type UpdateParams = Pick<
-  PostParams,
-  "name" | "quantity" | "price" | "recommend"
->;
+import { PostParams, UpdateParams } from "../../types/api/post";
 
 type Props = {
   isOpen: boolean;

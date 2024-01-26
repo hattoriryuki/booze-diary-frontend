@@ -7,30 +7,21 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  Avatar,
-  Box,
-  Center,
-  Flex,
-  IconButton,
-  Spinner,
-  Stack,
-  Text,
-  TextProps,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { useParams, Link } from "react-router-dom";
+import { Box, Flex, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
+import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useGetDetail } from "../../../hooks/useGetDetail";
 import { useDisplayRecommend } from "../../../hooks/useDisplayRecommend";
 import { PrimaryImage } from "../../atoms/PrimaryImage";
 import { getDetailReq } from "../../../api/postRequest";
 import { PostParams } from "../../../types/api/post";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { EditPostModal } from "../../organisms/EditPostModal";
 import { useUpdatePost } from "../../../hooks/useUpdatePost";
+import { MenuIconButton } from "../../atoms/MenuIconButton";
+import { CenterSpinner } from "../../atoms/CenterSpinner";
+import { AvatarGroup } from "../../molecules/AvatarGroup";
 
 export const Detail: FC = memo(() => {
   const [post, setPost] = useState<PostParams>();
@@ -48,9 +39,6 @@ export const Detail: FC = memo(() => {
   const { updatePost } = useUpdatePost({ post, setEditFlag, onClose });
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
-  const StyledText = useCallback(({ ...props }: TextProps) => {
-    return <Text mb={2} {...props} />;
-  }, []);
 
   useEffect(() => {
     getDetail(query.id);
@@ -64,14 +52,13 @@ export const Detail: FC = memo(() => {
     };
   }, [post]);
 
-  const onClickEdit = () => {
+  const onClickEdit = useCallback(() => {
     onOpen();
-  };
+  }, []);
 
   return (
     <>
-      <Box
-        as={Stack}
+      <Stack
         direction="column"
         align="center"
         mt={16}
@@ -79,9 +66,7 @@ export const Detail: FC = memo(() => {
         h="calc(100vh - 120px)"
       >
         {loading ? (
-          <Center h="100%">
-            <Spinner />
-          </Center>
+          <CenterSpinner />
         ) : (
           <>
             <Box>
@@ -90,37 +75,22 @@ export const Detail: FC = memo(() => {
                 justify="space-between"
                 w={{ base: "300px", md: "600px" }}
               >
-                <Flex align="center">
-                  <Avatar src={post?.user?.image} />
-                  <Link to={`/users/${post?.userId}`}>
-                    <Text
-                      ml={2}
-                      cursor="pointer"
-                      _hover={{
-                        textDecoration: "underline",
-                        color: "blue.500",
-                      }}
-                    >
-                      {post?.user?.name}
-                    </Text>
-                  </Link>
-                </Flex>
+                <AvatarGroup
+                  image={post?.user?.image}
+                  userId={post?.userId}
+                  userName={post?.user?.name}
+                />
                 {currentUser?.id === post?.user?.id && (
                   <Flex align="end">
-                    <IconButton
-                      aria-label="Edit post"
-                      background="none"
-                      height="2rem"
+                    <MenuIconButton
                       color="gray.600"
-                      icon={<FontAwesomeIcon icon={faPen} />}
+                      icon={faPen}
                       onClick={onClickEdit}
                     />
-                    <IconButton
-                      aria-label="Delete post"
-                      background="none"
-                      height="2rem"
+                    <MenuIconButton
                       color="red.500"
-                      icon={<FontAwesomeIcon icon={faTrashCan} />}
+                      icon={faTrashCan}
+                      onClick={onClickEdit}
                     />
                   </Flex>
                 )}
@@ -137,22 +107,22 @@ export const Detail: FC = memo(() => {
               <Flex mt={4} justify="space-around">
                 <Box>
                   {labels.map((label) => (
-                    <StyledText key={label}>{label}</StyledText>
+                    <Text key={label} mb={2}>
+                      {label}
+                    </Text>
                   ))}
                 </Box>
                 <Box ml={20}>
-                  <StyledText>{post?.name}</StyledText>
-                  <StyledText>
-                    {post?.quantity || "登録されていません"}
-                  </StyledText>
-                  <StyledText>{post?.price || "登録されていません"}</StyledText>
-                  <StyledText>{recommend.current}</StyledText>
+                  <Text mb={2}>{post?.name}</Text>
+                  <Text mb={2}>{post?.quantity || "登録されていません"}</Text>
+                  <Text mb={2}>{post?.price || "登録されていません"}</Text>
+                  <Text mb={2}>{recommend.current}</Text>
                 </Box>
               </Flex>
             </Stack>
           </>
         )}
-      </Box>
+      </Stack>
       <EditPostModal
         isOpen={isOpen}
         onClose={onClose}
