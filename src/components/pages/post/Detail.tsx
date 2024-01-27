@@ -22,6 +22,7 @@ import { useUpdatePost } from "../../../hooks/useUpdatePost";
 import { MenuIconButton } from "../../atoms/MenuIconButton";
 import { CenterSpinner } from "../../atoms/CenterSpinner";
 import { AvatarGroup } from "../../molecules/AvatarGroup";
+import { useDeletePost } from "../../../hooks/useDeletePost";
 
 export const Detail: FC = memo(() => {
   const [post, setPost] = useState<PostParams>();
@@ -37,6 +38,7 @@ export const Detail: FC = memo(() => {
   const { currentUser } = useContext(LoginUserContext);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { updatePost } = useUpdatePost({ post, setEditFlag, onClose });
+  const { deletePost } = useDeletePost();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
 
@@ -52,9 +54,10 @@ export const Detail: FC = memo(() => {
     };
   }, [post]);
 
-  const onClickEdit = useCallback(() => {
-    onOpen();
-  }, []);
+  const onClickDelete = useCallback(() => {
+    if (!post) return;
+    deletePost(post.id);
+  }, [post]);
 
   return (
     <>
@@ -85,12 +88,12 @@ export const Detail: FC = memo(() => {
                     <MenuIconButton
                       color="gray.600"
                       icon={faPen}
-                      onClick={onClickEdit}
+                      onClick={onOpen}
                     />
                     <MenuIconButton
                       color="red.500"
                       icon={faTrashCan}
-                      onClick={onClickEdit}
+                      onClick={onClickDelete}
                     />
                   </Flex>
                 )}
