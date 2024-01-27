@@ -23,6 +23,7 @@ import { MenuIconButton } from "../../atoms/MenuIconButton";
 import { CenterSpinner } from "../../atoms/CenterSpinner";
 import { AvatarGroup } from "../../molecules/AvatarGroup";
 import { useDeletePost } from "../../../hooks/useDeletePost";
+import { PrimaryAlertDialog } from "../../organisms/PrimaryAlertDialog";
 
 export const Detail: FC = memo(() => {
   const [post, setPost] = useState<PostParams>();
@@ -37,6 +38,11 @@ export const Detail: FC = memo(() => {
   const { displayRecommend } = useDisplayRecommend();
   const { currentUser } = useContext(LoginUserContext);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: alertIsOpen,
+    onClose: alertOnClose,
+    onOpen: alertOnOpen,
+  } = useDisclosure();
   const { updatePost } = useUpdatePost({ post, setEditFlag, onClose });
   const { deletePost } = useDeletePost();
 
@@ -93,7 +99,7 @@ export const Detail: FC = memo(() => {
                     <MenuIconButton
                       color="red.500"
                       icon={faTrashCan}
-                      onClick={onClickDelete}
+                      onClick={alertOnOpen}
                     />
                   </Flex>
                 )}
@@ -131,6 +137,11 @@ export const Detail: FC = memo(() => {
         onClose={onClose}
         post={post}
         updatePost={updatePost}
+      />
+      <PrimaryAlertDialog
+        func={onClickDelete}
+        isOpen={alertIsOpen}
+        onClose={alertOnClose}
       />
     </>
   );
