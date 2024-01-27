@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { UserDetailParams } from "../../../types/api/user";
-import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { PrimaryButton } from "../../atoms/buttons/PrimaryButton";
 import { useGetDetail } from "../../../hooks/useGetDetail";
 import { profileReq } from "../../../api/profileRequests";
 import { DetailTemplate } from "../../organisms/DetailTemplate";

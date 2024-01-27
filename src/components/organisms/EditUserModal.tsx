@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-import { PrimaryButton } from "../atoms/PrimaryButton";
+import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { UserDetailParams } from "../../types/api/user";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
 

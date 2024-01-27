@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 
-import { PrimaryButton } from "../atoms/PrimaryButton";
+import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { StarButtons } from "../molecules/StarButtons";
 import { PostParams, UpdateParams } from "../../types/api/post";
 

@@ -19,7 +19,7 @@ import { PostParams } from "../../../types/api/post";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { EditPostModal } from "../../organisms/EditPostModal";
 import { useUpdatePost } from "../../../hooks/useUpdatePost";
-import { MenuIconButton } from "../../atoms/MenuIconButton";
+import { MenuIconButton } from "../../atoms/buttons/MenuIconButton";
 import { CenterSpinner } from "../../atoms/CenterSpinner";
 import { AvatarGroup } from "../../molecules/AvatarGroup";
 import { useDeletePost } from "../../../hooks/useDeletePost";

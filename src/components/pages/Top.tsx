@@ -14,7 +14,7 @@ import { useNavigate } from "react-router";
 
 import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
-import { PrimaryButton } from "../atoms/PrimaryButton";
+import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { PostParams } from "../../types/api/post";
 import { useGetAllPosts } from "../../hooks/useGetAllPosts";
 
