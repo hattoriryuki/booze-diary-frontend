@@ -4,7 +4,6 @@ import {
   Flex,
   FormControl,
   FormLabel,
-  IconButton,
   Input,
   Modal,
   ModalBody,
@@ -15,11 +14,11 @@ import {
   ModalOverlay,
   Stack,
 } from "@chakra-ui/react";
-import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { UserDetailParams } from "../../types/api/user";
 import { UploadPhotoButton } from "../molecules/UploadPhotoButton";
+import { ArrowBackButton } from "../atoms/buttons/ArrowBackButton";
 
 type Props = {
   isOpen: boolean;
@@ -75,15 +74,7 @@ export const EditUserModal: FC<Props> = memo((props) => {
         </ModalBody>
         <ModalFooter>
           <Flex w="100%" justify="space-between">
-            <IconButton
-              aria-label="Page back button"
-              icon={<ArrowBackIcon />}
-              bg="none"
-              border="1px"
-              borderColor="gray.300"
-              _hover={{ bg: "blackAlpha.100" }}
-              onClick={onClose}
-            />
+            <ArrowBackButton func={onClose} />
             <PrimaryButton onClick={onClickUpdate}>更新</PrimaryButton>
           </Flex>
         </ModalFooter>
