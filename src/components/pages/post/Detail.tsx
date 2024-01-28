@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { Box, Flex, Stack, Text, useDisclosure } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 import { useGetDetail } from "../../../hooks/useGetDetail";
@@ -24,6 +24,7 @@ import { CenterSpinner } from "../../atoms/CenterSpinner";
 import { AvatarGroup } from "../../molecules/AvatarGroup";
 import { useDeletePost } from "../../../hooks/useDeletePost";
 import { PrimaryAlertDialog } from "../../organisms/PrimaryAlertDialog";
+import { ArrowBackButton } from "../../atoms/buttons/ArrowBackButton";
 
 export const Detail: FC = memo(() => {
   const [post, setPost] = useState<PostParams>();
@@ -45,6 +46,7 @@ export const Detail: FC = memo(() => {
   } = useDisclosure();
   const { updatePost } = useUpdatePost({ post, setEditFlag, onClose });
   const { deletePost } = useDeletePost();
+  const navigate = useNavigate();
 
   const labels = ["タイトル：", "量：", "価格：", "おすすめ度："];
 
@@ -71,8 +73,8 @@ export const Detail: FC = memo(() => {
         direction="column"
         align="center"
         mt={16}
-        mb={8}
-        h="calc(100vh - 120px)"
+        mb={4}
+        h={{ base: "calc(100vh - 120px)", md: "100%" }}
       >
         {loading ? (
           <CenterSpinner />
@@ -128,6 +130,9 @@ export const Detail: FC = memo(() => {
                   <Text mb={2}>{recommend.current}</Text>
                 </Box>
               </Flex>
+              <Box>
+                <ArrowBackButton func={() => navigate(-1)} />
+              </Box>
             </Stack>
           </>
         )}
