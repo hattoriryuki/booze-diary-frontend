@@ -8,11 +8,12 @@ import {
   Spinner,
   Text,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { StandOutBox } from "../atoms/StandOutBox";
 import { PrimaryImage } from "../atoms/PrimaryImage";
 import { PostParams } from "../../types/api/post";
+import { ArrowBackButton } from "../atoms/buttons/ArrowBackButton";
 
 type Props = {
   title: string;
@@ -23,6 +24,7 @@ type Props = {
 
 export const DetailTemplate: FC<Props> = memo((props) => {
   const { title, children, listItem, loading } = props;
+  const navigate = useNavigate();
 
   return (
     <Box mt={16}>
@@ -37,9 +39,22 @@ export const DetailTemplate: FC<Props> = memo((props) => {
           {title}
         </Heading>
         {children}
-        <Heading mt={8} mb={2} fontSize={{ base: "sm", md: "xl" }}>
-          過去の投稿
-        </Heading>
+        <Box w="100%" position="relative">
+          <Heading
+            textAlign="center"
+            mt={8}
+            mb={2}
+            fontSize={{ base: "sm", md: "xl" }}
+          >
+            過去の投稿
+          </Heading>
+          <ArrowBackButton
+            position="absolute"
+            top={0}
+            left={4}
+            func={() => navigate(-1)}
+          />
+        </Box>
         {loading ? (
           <Center h="100%">
             <Spinner />
