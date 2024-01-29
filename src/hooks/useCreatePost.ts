@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 
-import { createPostReq } from "../api/postRequest";
+import { createPostReq } from "../api/postRequests";
 import { PostParams } from "../types/api/post";
 import { useToastMsg } from "./useToastMsg";
 

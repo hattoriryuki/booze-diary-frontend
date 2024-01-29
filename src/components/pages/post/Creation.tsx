@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 import { PrimaryInputArea } from "../../molecules/PrimaryInputArea";
 import { UploadPhotoButton } from "../../molecules/UploadPhotoButton";
-import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { PrimaryButton } from "../../atoms/buttons/PrimaryButton";
 import { ImageBox } from "../../atoms/ImageBox";
 import { StarButtons } from "../../molecules/StarButtons";
 import { LoginUserContext } from "../../../providers/LoginUserProvider";

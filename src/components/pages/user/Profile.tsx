@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 
 import { LoginUserContext } from "../../../providers/LoginUserProvider";
 import { UserDetailParams } from "../../../types/api/user";
-import { PrimaryButton } from "../../atoms/PrimaryButton";
+import { PrimaryButton } from "../../atoms/buttons/PrimaryButton";
 import { useGetDetail } from "../../../hooks/useGetDetail";
-import { profileReq } from "../../../api/profileRequest";
+import { profileReq } from "../../../api/profileRequests";
 import { DetailTemplate } from "../../organisms/DetailTemplate";
-import { UserEditModal } from "../../organisms/UserEditModal";
+import { EditUserModal } from "../../organisms/EditUserModal";
 import { useUpdateProfile } from "../../../hooks/useUpdateProfile";
 
 export const Profile: FC = memo(() => {
@@ -87,7 +87,7 @@ export const Profile: FC = memo(() => {
           </PrimaryButton>
         </Box>
       </DetailTemplate>
-      <UserEditModal
+      <EditUserModal
         isOpen={isOpen}
         onClose={onClose}
         user={user}

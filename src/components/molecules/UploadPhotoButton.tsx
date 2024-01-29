@@ -9,7 +9,7 @@ import {
 } from "react";
 import { Input } from "@chakra-ui/input";
 
-import { PrimaryButton } from "../atoms/PrimaryButton";
+import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { ButtonProps } from "@chakra-ui/react";
 
 type Argument = {
