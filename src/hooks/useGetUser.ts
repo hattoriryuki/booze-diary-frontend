@@ -5,7 +5,7 @@ import { Params } from "react-router-dom";
 import { UserDetailParams } from "../types/api/user";
 
 type Detail = Omit<UserDetailParams, "email">;
-type Props = Dispatch<SetStateAction<Detail | undefined>>;
+type Props = Dispatch<SetStateAction<Detail>>;
 
 export const useGetUser = (setUser: Props) => {
   const [loading, setLoading] = useState(false);

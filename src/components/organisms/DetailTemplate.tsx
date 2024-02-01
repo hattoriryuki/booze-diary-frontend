@@ -31,7 +31,7 @@ export const DetailTemplate: FC<Props> = memo((props) => {
       <Flex
         direction="column"
         mt={16}
-        h="100vh"
+        h="calc(100vh - 64px)"
         align="center"
         overflowY="scroll"
       >
