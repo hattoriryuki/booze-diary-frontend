@@ -46,7 +46,7 @@ export const DetailTemplate: FC<Props> = memo((props) => {
         <ArrowBackButton
           position="absolute"
           top={0}
-          left={4}
+          left="10%"
           func={() => navigate(-1)}
         />
       </Box>

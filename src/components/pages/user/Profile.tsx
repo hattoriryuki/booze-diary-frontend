@@ -59,7 +59,7 @@ export const Profile: FC = memo(() => {
           title="マイページ"
           listItem={currentPosts}
           loading={loading}
-          style={{ h: "100vh" }}
+          style={{ h: { base: "", md: "100vh" } }}
         >
           <Box as={Flex} align="center" mt={8}>
             <Avatar

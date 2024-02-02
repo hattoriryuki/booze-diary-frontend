@@ -37,7 +37,7 @@ export const Index: FC = memo(() => {
           mt={4}
           columns={{ base: 1, md: 4 }}
           gap={4}
-          minH={{ base: "none", md: "calc(100vh - 300px)" }}
+          minH="calc(100vh - 300px)"
         >
           {currentPosts.map((data) => (
             <Box key={data.id}>
