@@ -33,6 +33,7 @@ export const Detail: FC = memo(() => {
         title="ユーザー紹介"
         listItem={currentPosts}
         loading={loading}
+        style={{ h: "calc(100vh - 64px)" }}
       >
         <Box as={Flex} align="center" mt={8}>
           <Avatar size="lg" mb={2} mr={4} src={user?.image} />
