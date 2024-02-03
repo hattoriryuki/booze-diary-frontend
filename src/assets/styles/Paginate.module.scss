@@ -1,0 +1,22 @@
+.pagination {
+  display: flex;
+  list-style: none;
+}
+
+.pageItem {
+  display: list-item;
+  margin-right: 12px;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  text-align: center;
+  line-height: 2rem;
+  &:hover {
+    background-color: #e2e8f0;
+    cursor: pointer;
+  }
+}
+
+.activePage {
+  background-color: #e2e8f0;
+}

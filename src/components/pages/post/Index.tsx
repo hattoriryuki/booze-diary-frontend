@@ -1,5 +1,4 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Button } from "@chakra-ui/button";
 import { Spinner } from "@chakra-ui/react";
 import {
   Flex,
@@ -13,11 +12,12 @@ import {
 import { DrinkCard } from "../../organisms/DrinkCard";
 import { useGetAllPosts } from "../../../hooks/useGetAllPosts";
 import { PostParams } from "../../../types/api/post";
+import { usePagination } from "../../../hooks/usePagination";
 
 export const Index: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const { getPosts, loading } = useGetAllPosts({ setPosts });
-  const page = [1, 2, 3, 4];
+  const { paginate, currentPosts } = usePagination({ posts, itemsPerPage: 12 });
 
   useEffect(() => {
     getPosts();
@@ -37,9 +37,9 @@ export const Index: FC = memo(() => {
           mt={4}
           columns={{ base: 1, md: 4 }}
           gap={4}
-          minH={{ base: "none", md: "calc(100vh - 300px)" }}
+          minH="calc(100vh - 300px)"
         >
-          {posts.map((data) => (
+          {currentPosts.map((data) => (
             <Box key={data.id}>
               <DrinkCard
                 id={data.id}
@@ -54,16 +54,7 @@ export const Index: FC = memo(() => {
         </SimpleGrid>
       )}
       <Flex mt={10} mb={4}>
-        {page.map((num) => (
-          <Button
-            key={num}
-            bg="none"
-            borderRadius="50%"
-            _hover={{ bg: "#E2E8F0" }}
-          >
-            {num}
-          </Button>
-        ))}
+        {paginate}
       </Flex>
     </Stack>
   );
