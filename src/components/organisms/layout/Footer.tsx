@@ -1,10 +1,12 @@
 import { FC, memo } from "react";
 import { Flex, Link, Stack, Text, useDisclosure } from "@chakra-ui/react";
-import { TermsModal } from "../TermsModal";
+
+import { PrimaryModal } from "../PrimaryModal";
+import { TermsContent } from "../../molecules/TermsContent";
 
 export const Footer: FC = memo(() => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  
+
   return (
     <>
       <Flex
@@ -25,7 +27,9 @@ export const Footer: FC = memo(() => {
           &copy; 2023 BoozeDiary. All rights reserved
         </Text>
       </Flex>
-      <TermsModal isOpen={isOpen} onClose={onClose} />
+      <PrimaryModal title="利用規約" isOpen={isOpen} onClose={onClose}>
+        <TermsContent />
+      </PrimaryModal>
     </>
   );
 });
