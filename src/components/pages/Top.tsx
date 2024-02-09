@@ -1,4 +1,4 @@
-import { FC, memo, useCallback, useContext, useEffect, useState } from "react";
+import { FC, memo, useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -11,24 +11,20 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-import Cookies from "js-cookie";
 
 import topImage from "../../assets/images/top.jpg";
 import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { PostParams } from "../../types/api/post";
 import { useGetAllPosts } from "../../hooks/useGetAllPosts";
-import { useToastMsg } from "../../hooks/useToastMsg";
-import { LoginUserContext } from "../../providers/LoginUserProvider";
-import { GuestLoginReq } from "../../api/auth";
+import { useGuestLogin } from "../../hooks/useGuestLogin";
 
 export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
   const navigate = useNavigate();
   const { getPosts, loading } = useGetAllPosts({ setPosts });
-  const { showToastMsg } = useToastMsg();
-  const { setIsSignedIn, setCurrentUser } = useContext(LoginUserContext);
+  const { guestLogin } = useGuestLogin();
 
   useEffect(() => {
     getPosts();
@@ -37,26 +33,6 @@ export const Top: FC = memo(() => {
   useEffect(() => {
     setSelectedPosts(posts.slice(0, 8));
   }, [posts]);
-
-  const onClickGuestLogin = useCallback(async () => {
-    try {
-      const res = await GuestLoginReq();
-      if (res.status === 200) {
-        Cookies.set("_access_token", res.headers["access-token"]);
-        Cookies.set("_client", res.headers["client"]);
-        Cookies.set("_uid", res.headers["uid"]);
-        setIsSignedIn(true);
-        setCurrentUser(res.data);
-        navigate("/posts");
-        showToastMsg({
-          status: "success",
-          title: "ゲストとしてログインしました",
-        });
-      }
-    } catch (err) {
-      showToastMsg({ status: "error", title: "ゲストログインに失敗しました" });
-    }
-  }, []);
 
   return (
     <Box w="100vw" overflow="scroll" pb={10}>
@@ -104,10 +80,7 @@ export const Top: FC = memo(() => {
         >
           全ての投稿
         </Button>
-        <PrimaryButton
-          onClick={onClickGuestLogin}
-          mt={{ base: "10", md: "20" }}
-        >
+        <PrimaryButton onClick={guestLogin} mt={{ base: "10", md: "20" }}>
           ゲストログイン
         </PrimaryButton>
       </Box>
