@@ -31,7 +31,12 @@ export const Footer: FC = memo(() => {
         <Stack direction="row" gap={{ base: 4, md: 12 }}>
           <Link onClick={TermsOnOpen}>利用規約</Link>
           <Link onClick={PrivacyOnOpen}>プライバシーポリシー</Link>
-          <Link>お問い合せ</Link>
+          <Link
+            href="https://twitter.com/messages/compose?recipient_id=1457235129190223872"
+            target="_blank"
+          >
+            お問い合せ
+          </Link>
         </Stack>
         <Text color="gray.600">
           &copy; 2023 BoozeDiary. All rights reserved
