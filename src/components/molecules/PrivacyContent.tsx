@@ -3,11 +3,12 @@ import {
   Box,
   BoxProps,
   Heading,
-  Link,
   ListItem,
   OrderedList,
   UnorderedList,
 } from "@chakra-ui/react";
+
+import { ContactLink } from "../atoms/ContactLink";
 
 export const PrivacyContent = memo(() => {
   const PrimaryHeading: FC<BoxProps> = (props) => {
@@ -163,13 +164,7 @@ export const PrivacyContent = memo(() => {
       <Box>
         本ポリシーに関するお問い合わせは、下記の窓口までお願いいたします。
         <br />
-        <Link
-          href="https://twitter.com/messages/compose?recipient_id=1457235129190223872"
-          target="_blank"
-          color="teal.500"
-        >
-          @ryuki_runteq_27
-        </Link>
+        <ContactLink title="@ryuki_runteq_27" color="teal.500" />
       </Box>
       <Box mt={4}>以上</Box>
     </UnorderedList>
