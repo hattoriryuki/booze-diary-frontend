@@ -56,10 +56,12 @@ export const HamburgerMenu: FC = memo(() => {
           mt={1}
         >
           <MenuDivider />
-          <MenuItem onClick={() => navigate("/profile")}>
-            <FontAwesomeIcon icon={faAddressCard} />
-            <Text ml={2}>マイページ</Text>
-          </MenuItem>
+          {currentUser?.role === "general" && (
+            <MenuItem onClick={() => navigate("/profile")}>
+              <FontAwesomeIcon icon={faAddressCard} />
+              <Text ml={2}>マイページ</Text>
+            </MenuItem>
+          )}
           <MenuItem color="red.500" onClick={onClickSignOut}>
             <FontAwesomeIcon icon={faRightFromBracket} />
             <Text ml={2}>ログアウト</Text>
