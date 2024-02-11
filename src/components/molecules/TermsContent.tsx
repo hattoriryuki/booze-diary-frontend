@@ -1,13 +1,14 @@
+import { FC, memo } from "react";
 import {
   Box,
   BoxProps,
   Heading,
-  Link,
   ListItem,
   OrderedList,
   UnorderedList,
 } from "@chakra-ui/react";
-import { FC, memo } from "react";
+
+import { ContactLink } from "../atoms/ContactLink";
 
 export const TermsContent: FC = memo(() => {
   const PrimaryHeading: FC<BoxProps> = (props) => {
@@ -199,13 +200,7 @@ export const TermsContent: FC = memo(() => {
       <Box>
         本サービスに関するお問い合わせは、下記XアカウントのDMまでお願いいたします。
         <br />
-        <Link
-          href="https://twitter.com/messages/compose?recipient_id=1457235129190223872"
-          target="_blank"
-          color="teal.500"
-        >
-          @ryuki_runteq_27
-        </Link>
+        <ContactLink title="@ryuki_runteq_27" color="teal.500" />
       </Box>
       <Box mt={4}>以上</Box>
     </UnorderedList>

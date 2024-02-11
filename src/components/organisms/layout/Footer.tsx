@@ -4,6 +4,7 @@ import { Flex, Link, Stack, Text, useDisclosure } from "@chakra-ui/react";
 import { PrimaryModal } from "../PrimaryModal";
 import { TermsContent } from "../../molecules/TermsContent";
 import { PrivacyContent } from "../../molecules/PrivacyContent";
+import { ContactLink } from "../../atoms/ContactLink";
 
 export const Footer: FC = memo(() => {
   const {
@@ -31,7 +32,7 @@ export const Footer: FC = memo(() => {
         <Stack direction="row" gap={{ base: 4, md: 12 }}>
           <Link onClick={TermsOnOpen}>利用規約</Link>
           <Link onClick={PrivacyOnOpen}>プライバシーポリシー</Link>
-          <Link>お問い合せ</Link>
+          <ContactLink title="お問い合せ" />
         </Stack>
         <Text color="gray.600">
           &copy; 2023 BoozeDiary. All rights reserved
