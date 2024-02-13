@@ -29,9 +29,13 @@ export const createPostReq = (
 };
 
 export const updatePostReq = (id: number, params: UpdateParams) => {
-  return client.patch(`/posts/${id}`, params);
+  return client.patch(`/posts/${id}`, params, {
+    headers,
+  });
 };
 
 export const deletePostReq = (id: number) => {
-  return client.delete(`/posts/${id}`);
+  return client.delete(`/posts/${id}`, {
+    headers,
+  });
 };
