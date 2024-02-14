@@ -91,20 +91,21 @@ export const Detail: FC = memo(() => {
                   userId={post?.userId}
                   userName={post?.user?.name}
                 />
-                {currentUser?.id === post?.user?.id && (
-                  <Flex align="end">
-                    <MenuIconButton
-                      color="gray.600"
-                      icon={faPen}
-                      onClick={onOpen}
-                    />
-                    <MenuIconButton
-                      color="red.500"
-                      icon={faTrashCan}
-                      onClick={alertOnOpen}
-                    />
-                  </Flex>
-                )}
+                {currentUser?.id === post?.user?.id &&
+                  currentUser?.role === "general" && (
+                    <Flex align="end">
+                      <MenuIconButton
+                        color="gray.600"
+                        icon={faPen}
+                        onClick={onOpen}
+                      />
+                      <MenuIconButton
+                        color="red.500"
+                        icon={faTrashCan}
+                        onClick={alertOnOpen}
+                      />
+                    </Flex>
+                  )}
               </Flex>
               <Box mt={4} boxShadow="lg" borderRadius="10px">
                 <PrimaryImage

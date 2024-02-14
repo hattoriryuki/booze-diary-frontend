@@ -32,3 +32,7 @@ export const getCurrentUser = () => {
     headers: headers,
   });
 };
+
+export const GuestLoginReq = () => {
+  return client.post("/auth/guest_sign_in");
+};

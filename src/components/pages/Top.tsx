@@ -17,12 +17,14 @@ import { DrinkCard } from "../organisms/DrinkCard";
 import { PrimaryButton } from "../atoms/buttons/PrimaryButton";
 import { PostParams } from "../../types/api/post";
 import { useGetAllPosts } from "../../hooks/useGetAllPosts";
+import { useGuestLogin } from "../../hooks/useGuestLogin";
 
 export const Top: FC = memo(() => {
   const [posts, setPosts] = useState<PostParams[]>([]);
   const [selectedPosts, setSelectedPosts] = useState<PostParams[]>([]);
   const navigate = useNavigate();
   const { getPosts, loading } = useGetAllPosts({ setPosts });
+  const { guestLogin } = useGuestLogin();
 
   useEffect(() => {
     getPosts();
@@ -78,7 +80,9 @@ export const Top: FC = memo(() => {
         >
           全ての投稿
         </Button>
-        <PrimaryButton mt={{ base: "10", md: "20" }}>はじめる</PrimaryButton>
+        <PrimaryButton onClick={guestLogin} mt={{ base: "10", md: "20" }}>
+          ゲストログイン
+        </PrimaryButton>
       </Box>
     </Box>
   );
