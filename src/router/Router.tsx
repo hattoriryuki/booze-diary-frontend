@@ -5,6 +5,7 @@ import { DefaultLayout } from "../components/templates/DefaultLayout";
 import { LoginUserProvider } from "../providers/LoginUserProvider";
 import { homeRoutes } from "./HomeRoutes";
 import { postRoutes } from "./PostRoutes";
+import { Page404 } from "../components/pages/Page404";
 
 export const Router: FC = memo(() => {
   return (
@@ -26,6 +27,7 @@ export const Router: FC = memo(() => {
             />
           ))}
         </Route>
+        <Route path="*" element={<Page404 />} />
       </Routes>
     </LoginUserProvider>
   );
