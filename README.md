@@ -7,7 +7,7 @@
 
 ### ▼ サービス URL
 
-※URL 発行後記載
+[BoozeDiary](https://boozediary-b8016.web.app)
 
 ### ▼ メインターゲット
 
